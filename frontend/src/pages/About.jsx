@@ -17,12 +17,13 @@ const About = () => {
               We stand as a testament to the enduring spirit of Rajputana, bringing alive the tales of valor, the colors of the desert, and the warmth of Rajasthani hospitality in every event we host.
             </p>
           </div>
-          <div className="relative">
-            <div className="absolute inset-0 bg-rajasthan-gold transform translate-x-4 translate-y-4 rounded-2xl"></div>
+          <div className="relative flex justify-center items-center p-4">
+            {/* Centered squared background box */}
+            <div className="absolute w-full max-w-md aspect-square bg-rajasthan-gold rounded-3xl opacity-80 scale-105"></div>
             <img 
               src="/RCA%20png.jpeg" 
               alt="RCA SVNIT Logo" 
-              className="relative rounded-full shadow-2xl border-4 border-rajasthan-gold w-full max-w-md mx-auto aspect-square object-cover bg-rajasthan-navy p-2"
+              className="relative z-10 rounded-full shadow-2xl border-4 border-white w-full max-w-md aspect-square object-cover bg-rajasthan-navy p-2"
             />
           </div>
         </div>
