@@ -4,6 +4,7 @@ import Member from '../models/Member.js';
 import Sponsor from '../models/Sponsor.js';
 import Message from '../models/Message.js';
 import multer from 'multer';
+import nodemailer from 'nodemailer';
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import path from 'path';
@@ -129,6 +130,27 @@ router.post('/messages', async (req, res) => {
   try {
     const newMessage = new Message(req.body);
     await newMessage.save();
+
+    try {
+      if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+          }
+        });
+        await transporter.sendMail({
+          from: process.env.EMAIL_USER,
+          to: 'rca.svnit@gmail.com',
+          subject: `RCA Contact: New Message from ${req.body.name}`,
+          text: `Name: ${req.body.name}\nEmail: ${req.body.email}\n\nMessage:\n${req.body.message}`
+        });
+      }
+    } catch (mailErr) {
+      console.error('Email failed to send:', mailErr);
+    }
+
     res.status(201).json({ success: true, message: 'Message sent successfully' });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
