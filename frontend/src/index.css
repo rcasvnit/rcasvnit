@@ -1,26 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply font-sans bg-[#FDFBF7] text-gray-900;
+    background-color: #0B1021;
+    color: #F5ECE3;
+    @apply font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-royal tracking-wide;
+  }
+}
+
+@layer utilities {
+  .royal-glass {
+    @apply bg-white/80 backdrop-blur-md border border-rajasthan-gold/30 shadow-[0_8px_32px_0_rgba(212,175,55,0.15)];
   }
   
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-ethnic;
+  .dark-royal-glass {
+    @apply bg-rajasthan-navy/90 backdrop-blur-lg border border-rajasthan-gold/40 shadow-[0_8px_32px_0_rgba(11,16,33,0.37)];
+  }
+
+  /* Immersive dusty background effect */
+  .bg-immersive-dust {
+    @apply relative overflow-hidden;
+  }
+  .bg-immersive-dust::before {
+    content: '';
+    @apply absolute inset-0 opacity-20 bg-texture-dust mix-blend-overlay pointer-events-none animate-dust-drift;
+  }
+  
+  .bg-mandala-overlay {
+    @apply relative;
+  }
+  .bg-mandala-overlay::after {
+    content: '';
+    @apply absolute inset-0 opacity-5 bg-texture-mandala pointer-events-none mix-blend-multiply z-0;
+  }
+
+  /* A vibrant royal block printed card style */
+  .palace-card {
+    @apply bg-white rounded-t-full rounded-b-2xl shadow-xl border-x-2 border-b-2 border-rajasthan-gold/30 hover:shadow-2xl hover:border-rajasthan-gold transition-all duration-500 overflow-hidden relative;
+  }
+  .palace-card::before {
+    content: '';
+    @apply absolute top-0 inset-x-0 h-4 bg-gradient-to-r from-rajasthan-saffron via-rajasthan-red to-rajasthan-maroon;
   }
 }
 
-.rajasthani-bg {
-  background-color: #FDFBF7;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d32f2f' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+@layer components {
+  .btn-royal {
+    @apply relative inline-flex items-center justify-center px-8 py-3 font-ethnic font-bold text-lg tracking-widest text-rajasthan-gold bg-transparent border-2 border-rajasthan-gold rounded-full overflow-hidden transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] hover:text-rajasthan-navy hover:-translate-y-1 z-10;
+  }
+  
+  .btn-royal::before {
+    content: '';
+    @apply absolute inset-0 bg-rajasthan-gold scale-x-0 origin-left transition-transform duration-500 ease-out z-[-1];
+  }
+  
+  .btn-royal:hover::before {
+    @apply scale-x-100;
+  }
+
+  .btn-royal-solid {
+    @apply relative inline-flex items-center justify-center px-8 py-3 font-ethnic font-bold text-lg tracking-widest text-white bg-gradient-to-r from-rajasthan-red to-rajasthan-saffron rounded-full overflow-hidden transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1;
+  }
 }
-
-.glass-panel {
-  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
-}
-
-

@@ -1,88 +1,158 @@
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Users, Calendar, Award } from 'lucide-react';
+import { ArrowRight, Calendar, Users, Award, Play } from 'lucide-react';
 
 const Home = () => {
+  const stats = [
+    { icon: <Users size={32} className="text-rajasthan-saffron" />, count: "500+", label: "Royal Members" },
+    { icon: <Calendar size={32} className="text-rajasthan-gold" />, count: "50+", label: "Cultural Utsavs" },
+    { icon: <Award size={32} className="text-rajasthan-red" />, count: "10+", label: "Years of Legacy" },
+  ];
+
+  const fadeIn = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+  };
+
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-black/40 z-10"></div>
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1599661559684-6997b830d1d2?auto=format&fit=crop&q=80&w=2000")' }}
-        ></div>
+    <div className="bg-rajasthan-navy min-h-screen text-white overflow-hidden bg-immersive-dust">
+      {/* Immersive Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-32 pt-24">
+        {/* Parallax Background */}
+        <motion.div 
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 20, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
+          className="absolute inset-0 z-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1599661559684-6997b830d1d2?auto=format&fit=crop&q=80')" }}
+        />
         
-        <div className="relative z-20 text-center px-4 max-w-5xl mx-auto mt-16">
-          <h1 className="text-6xl md:text-8xl font-ethnic font-bold text-white mb-6 drop-shadow-xl tracking-wider">
-            Padharo <span className="text-rajasthan-yellow">Mhare</span> Desh
-          </h1>
-          <p className="text-xl md:text-3xl text-amber-50 mb-10 font-light tracking-wide drop-shadow-md">
-            Celebrating the Royal Heritage & Vibrant Traditions of Rajasthan
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/events" className="bg-rajasthan-navy text-rajasthan-gold font-bold py-3 px-8 rounded-full shadow-lg transition-all transform hover:-translate-y-1 hover:shadow-xl font-ethnic tracking-wider border-2 border-rajasthan-gold flex items-center justify-center gap-2 text-lg">
-              Explore Events <ArrowRight size={20} />
-            </Link>
-            <Link to="/contact" className="bg-gradient-to-r from-rajasthan-pink to-rajasthan-orange text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all transform hover:-translate-y-1 hover:shadow-xl font-ethnic tracking-wider flex items-center justify-center gap-2 text-lg">
-              Join the Legacy
-            </Link>
-          </div>
+        {/* Sunset Gradient Overlay */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-rajasthan-navy via-rajasthan-maroon/60 to-transparent"></div>
+        <div className="absolute inset-0 z-10 bg-black/30"></div>
+
+        <div className="relative z-20 text-center px-4 mt-24">
+          <motion.div 
+            initial="hidden" 
+            animate="visible" 
+            variants={staggerContainer} 
+            className="flex flex-col items-center"
+          >
+            <motion.img 
+              variants={fadeIn}
+              src="/RCA%20png.jpeg" 
+              alt="RCA SVNIT Logo" 
+              className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-rajasthan-gold shadow-[0_0_30px_rgba(212,175,55,0.8)] mb-8"
+            />
+            
+            <motion.p variants={fadeIn} className="font-royal text-rajasthan-gold tracking-[0.3em] font-bold text-sm md:text-lg mb-4 uppercase drop-shadow-lg">
+              Welcome to the Heritage
+            </motion.p>
+            
+            <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl lg:text-8xl font-ethnic font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-rajasthan-gold to-yellow-500 mb-6 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] leading-tight">
+              Experience the<br/>Royal Essence
+            </motion.h1>
+            
+            <motion.p variants={fadeIn} className="text-lg md:text-2xl font-royal text-amber-50 max-w-3xl mx-auto mb-12 drop-shadow-md">
+              Celebrating the royal heritage, vibrant traditions, and unparalleled hospitality of Rajasthan at SVNIT Surat.
+            </motion.p>
+            
+            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link to="/events" className="btn-royal">
+                Explore Events <ArrowRight className="ml-2" size={20} />
+              </Link>
+              <Link to="/about" className="btn-royal-solid">
+                <Play className="mr-2 fill-current" size={20} /> Our Story
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
-        
-        {/* Decorative Bottom */}
-        <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-[#FDFBF7] to-transparent z-20"></div>
+
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-[#FDFBF7] rajasthani-bg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="glass-panel p-8 rounded-2xl text-center transform transition duration-500 hover:scale-105 border-b-4 border-rajasthan-red">
-              <Users className="w-16 h-16 mx-auto text-rajasthan-pink mb-4" />
-              <h3 className="text-4xl font-bold text-rajasthan-navy font-ethnic mb-2">500+</h3>
-              <p className="text-gray-600 font-medium text-lg uppercase tracking-wider">Active Members</p>
-            </div>
-            <div className="glass-panel p-8 rounded-2xl text-center transform transition duration-500 hover:scale-105 border-b-4 border-rajasthan-gold">
-              <Calendar className="w-16 h-16 mx-auto text-rajasthan-red mb-4" />
-              <h3 className="text-4xl font-bold text-rajasthan-navy font-ethnic mb-2">50+</h3>
-              <p className="text-gray-600 font-medium text-lg uppercase tracking-wider">Cultural Events</p>
-            </div>
-            <div className="glass-panel p-8 rounded-2xl text-center transform transition duration-500 hover:scale-105 border-b-4 border-rajasthan-pink">
-              <Award className="w-16 h-16 mx-auto text-rajasthan-orange mb-4" />
-              <h3 className="text-4xl font-bold text-rajasthan-navy font-ethnic mb-2">10+</h3>
-              <p className="text-gray-600 font-medium text-lg uppercase tracking-wider">Years of Legacy</p>
-            </div>
-          </div>
-        </div>
+      {/* Stats Section with Glassmorphism */}
+      <section className="relative z-30 -mt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+        >
+          {stats.map((stat, index) => (
+            <motion.div 
+              key={index} 
+              variants={fadeIn}
+              whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(0,0,0,0.4)', borderColor: '#D4AF37' }}
+              className="dark-royal-glass rounded-2xl p-8 flex items-center shadow-2xl transition-all duration-300 relative overflow-hidden group border border-amber-900/40"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-rajasthan-gold/10 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
+              <div className="bg-gradient-to-br from-rajasthan-navy to-black p-4 rounded-full border border-rajasthan-gold/30 mr-6 shadow-inner">
+                {stat.icon}
+              </div>
+              <div>
+                <div className="text-4xl font-ethnic font-bold text-white mb-1 group-hover:text-rajasthan-gold transition-colors">{stat.count}</div>
+                <div className="text-amber-200/80 font-royal tracking-wider font-semibold uppercase text-sm">{stat.label}</div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
 
-      {/* Featured Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-ethnic font-bold text-rajasthan-navy mb-4">Glimpse of Royalty</h2>
-            <div className="w-24 h-1 bg-rajasthan-pink mx-auto mb-6"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">Experience the rich culture, art, and traditions that make Rajasthan truly incredible through our curated events and galleries.</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="rounded-2xl overflow-hidden shadow-2xl relative group">
-              <img src="https://images.unsplash.com/photo-1543330691-88849b28fb3c?auto=format&fit=crop&w=800&q=80" alt="Culture" className="w-full h-[400px] object-cover transform group-hover:scale-110 transition duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8">
-                <h3 className="text-3xl text-white font-ethnic font-bold">Vibrant Festivals</h3>
-              </div>
+      {/* Decorative Divider */}
+      <div className="w-full flex items-center justify-center my-20 px-4">
+        <div className="h-[2px] w-48 md:w-96 lg:w-[400px] bg-gradient-to-r from-transparent to-rajasthan-gold/80"></div>
+        <div className="w-4 h-4 bg-rajasthan-navy rotate-45 mx-6 border-2 border-rajasthan-gold rounded-sm shrink-0 shadow-[0_0_10px_rgba(212,175,55,0.5)]"></div>
+        <div className="h-[2px] w-48 md:w-96 lg:w-[400px] bg-gradient-to-l from-transparent to-rajasthan-gold/80"></div>
+      </div>
+
+      {/* About Section Snippet */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pb-32 relative bg-mandala-overlay">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
+          >
+            <div>
+              <p className="text-rajasthan-saffron font-royal tracking-[0.2em] font-bold uppercase mb-2">The Legacy</p>
+              <h2 className="text-5xl font-ethnic font-bold text-rajasthan-gold mb-6 leading-tight">Glimpse of <br/><span className="text-white">Royalty</span></h2>
             </div>
-            <div className="space-y-6">
-              <div className="glass-panel p-6 rounded-xl border-l-4 border-rajasthan-red">
-                <h4 className="text-2xl font-bold text-gray-900 font-ethnic mb-2">Our Mission</h4>
-                <p className="text-gray-600">To preserve, promote, and pass down the rich cultural heritage of Rajasthan to the next generation.</p>
-              </div>
-              <div className="glass-panel p-6 rounded-xl border-l-4 border-rajasthan-gold">
-                <h4 className="text-2xl font-bold text-gray-900 font-ethnic mb-2">What We Do</h4>
-                <p className="text-gray-600">From grand cultural festivals and traditional art exhibitions to folk dance performances and literary meets.</p>
-              </div>
-            </div>
-          </div>
+            
+            <p className="text-xl text-amber-50/90 font-royal leading-relaxed border-l-4 border-rajasthan-red pl-6">
+              RCA is more than just an association; it's a family that brings the majestic and deeply rooted cultural ethos of Rajputana to the heart of our vibrant campus.
+            </p>
+            
+            <p className="text-base text-gray-400 font-sans leading-relaxed">
+              We orchestrate grandeur—from the thunderous beats of Dhol during festive nights to the mesmerizing twirls of Ghoomar. We are the guardians of sand dune memories in an urban oasis.
+            </p>
+
+            <Link to="/about" className="inline-block border-b-2 border-rajasthan-saffron text-rajasthan-saffron hover:text-white hover:border-white font-royal font-bold tracking-widest uppercase transition-all pb-1 mt-4">
+              Discover the full story &rarr;
+            </Link>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1 }}
+            className="relative h-[600px] w-full rounded-tl-[100px] rounded-br-[100px] overflow-hidden border-8 border-rajasthan-navy shadow-[0_0_50px_rgba(212,175,55,0.2)] group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10 group-hover:bg-black/10 transition-all duration-700"></div>
+            <img 
+              src="/rajasthaniArchitecture.jpg" 
+              alt="Royal Rajasthani Architecture" 
+              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 ease-out"
+            />
+          </motion.div>
         </div>
       </section>
     </div>
