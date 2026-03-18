@@ -1,23 +1,68 @@
-import { Heart } from 'lucide-react';
+import { Heart, MapPin, Mail, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-rajasthan-navy text-white py-12 border-t-4 border-rajasthan-gold mt-12">
+    <footer className="bg-rajasthan-navy text-white py-14 border-t-4 border-rajasthan-gold mt-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
+          
+          {/* Brand Section */}
           <div className="text-center md:text-left">
-            <h3 className="text-2xl font-ethnic font-bold tracking-wider mb-2 text-rajasthan-gold">Rajasthan Culture Association</h3>
-            <p className="text-amber-50 max-w-sm">Celebrating and preserving the rich heritage, traditions, and vibrant culture of Rajasthan at SVNIT Surat.</p>
+            <h3 className="text-2xl font-ethnic font-bold tracking-wider mb-4 text-rajasthan-gold uppercase flex items-center justify-center md:justify-start gap-3">
+              <img src="/RCA%20png.jpeg" alt="RCA Logo" className="w-10 h-10 rounded-full border border-rajasthan-gold shadow-md object-cover" />
+              RCA SVNIT
+            </h3>
+            <p className="text-amber-50 max-w-sm mx-auto md:mx-0 leading-relaxed text-sm">
+              Celebrating and preserving the rich heritage, traditions, and vibrant culture of Rajasthan right here at SVNIT Surat.
+            </p>
+            <div className="mt-6 flex items-center justify-center md:justify-start space-x-2 text-amber-200 text-sm font-medium bg-black/20 px-3 py-1.5 rounded-full w-max">
+              <span>Made with</span>
+              <Heart size={14} className="text-rajasthan-pink fill-current" />
+              <span>by RCA Tech Team</span>
+            </div>
           </div>
-          <div className="flex items-center space-x-2 text-amber-200 font-medium bg-black/20 px-4 py-2 rounded-full">
-            <span>Made with</span>
-            <Heart size={16} className="text-rajasthan-red fill-current" />
-            <span>by RCA Tech Team</span>
+
+          {/* Quick Links Section */}
+          <div className="text-center md:text-left">
+            <h4 className="text-lg font-bold font-ethnic text-rajasthan-pink mb-4 uppercase tracking-widest border-b border-white/10 pb-2">Quick Links</h4>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <Link to="/" className="text-amber-100 hover:text-white hover:translate-x-1 transition-all inline-block">&rsaquo; Home</Link>
+              <Link to="/about" className="text-amber-100 hover:text-white hover:translate-x-1 transition-all inline-block">&rsaquo; About Us</Link>
+              <Link to="/events" className="text-amber-100 hover:text-white hover:translate-x-1 transition-all inline-block">&rsaquo; Utsav (Events)</Link>
+              <Link to="/team" className="text-amber-100 hover:text-white hover:translate-x-1 transition-all inline-block">&rsaquo; Royal Council</Link>
+              <Link to="/sponsors" className="text-amber-100 hover:text-white hover:translate-x-1 transition-all inline-block">&rsaquo; Patrons</Link>
+              <Link to="/gallery" className="text-amber-100 hover:text-white hover:translate-x-1 transition-all inline-block">&rsaquo; Gallery</Link>
+              <Link to="/contact" className="text-amber-100 hover:text-white hover:translate-x-1 transition-all inline-block">&rsaquo; Contact Us</Link>
+            </div>
+          </div>
+
+          {/* Contact Information */}
+          <div className="text-center md:text-left">
+            <h4 className="text-lg font-bold font-ethnic text-rajasthan-pink mb-4 uppercase tracking-widest border-b border-white/10 pb-2">Reach Out</h4>
+            <ul className="space-y-4 text-sm text-amber-50">
+              <li className="flex items-start justify-center md:justify-start gap-3">
+                <MapPin size={18} className="text-rajasthan-gold flex-shrink-0 mt-0.5" />
+                <span>SVNIT Surat</span>
+              </li>
+              <li className="flex items-center justify-center md:justify-start gap-3">
+                <Mail size={18} className="text-rajasthan-gold flex-shrink-0" />
+                <a href="mailto:rca.svnit@gmail.com" className="hover:text-white transition-colors">rca.svnit@gmail.com</a>
+              </li>
+              <li className="flex items-center justify-center md:justify-start gap-3">
+                <Phone size={18} className="text-rajasthan-gold flex-shrink-0" />
+                <a href="tel:+919876543210" className="hover:text-white transition-colors">+91 98765 43210</a>
+              </li>
+            </ul>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-white/10 text-center text-sm text-amber-200">
-          &copy; {new Date().getFullYear()} Rajasthan Culture Association, SVNIT. All rights reserved. | <Link to="/admin" className="text-amber-300 hover:text-white transition-colors">Admin Portal</Link>
+
+        {/* Bottom Bar */}
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-amber-200/70">
+          <p>&copy; {new Date().getFullYear()} Rajasthan Culture Association, SVNIT. All rights reserved.</p>
+          <div className="mt-4 md:mt-0 flex gap-4">
+            <Link to="/admin" className="hover:text-amber-400 transition-colors uppercase tracking-wider font-bold">Admin Portal</Link>
+          </div>
         </div>
       </div>
     </footer>

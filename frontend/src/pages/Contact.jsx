@@ -70,8 +70,8 @@ const Contact = () => {
                 <MapPin size={28} />
               </div>
               <div>
-                <h4 className="font-bold text-xl text-rajasthan-navy mb-1 font-ethnic">Our Palace (Office)</h4>
-                <p className="text-gray-600 font-medium tracking-wide">Student Activity Center, Main Campus</p>
+                <h4 className="font-bold text-xl text-rajasthan-navy mb-1 font-ethnic">Address</h4>
+                <p className="text-gray-600 font-medium tracking-wide">SVNIT Surat</p>
               </div>
             </div>
             
@@ -81,7 +81,7 @@ const Contact = () => {
               </div>
               <div>
                 <h4 className="font-bold text-xl text-rajasthan-navy mb-1 font-ethnic">Email Queries</h4>
-                <p className="text-gray-600 font-medium tracking-wide">rca.svnit@gmail.com</p>
+                <a href="mailto:rca.svnit@gmail.com" className="text-gray-600 hover:text-rajasthan-navy font-medium tracking-wide transition-colors">rca.svnit@gmail.com</a>
               </div>
             </div>
             
@@ -91,14 +91,14 @@ const Contact = () => {
               </div>
               <div>
                 <h4 className="font-bold text-xl text-rajasthan-navy mb-1 font-ethnic">Ring Us</h4>
-                <p className="text-gray-600 font-medium tracking-wide">+91 98765 43210</p>
+                <a href="tel:+919876543210" className="text-gray-600 hover:text-rajasthan-navy font-medium tracking-wide transition-colors">+91 98765 43210</a>
               </div>
             </div>
             
             <div className="h-64 rounded-3xl overflow-hidden shadow-xl border-4 border-white">
               <iframe 
-                title="RCA Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14234.621456908588!2d75.8119!3d26.9124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDU0JzQ0LjYiTiA3NcKwNDgnNDIuOCJF!5e0!3m2!1sen!2sin!4v1633512345678!5m2!1sen!2sin" 
+                title="SVNIT Surat Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.1627063363364!2d72.78310931533152!3d21.163914885923927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04dec8b56fdf3%3A0x423bbc25e3d74da0!2sSardar%20Vallabhbhai%20National%20Institute%20of%20Technology%20(SVNIT)!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 
