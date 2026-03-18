@@ -1,4 +1,5 @@
 import { Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -16,7 +17,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-white/10 text-center text-sm text-amber-200">
-          &copy; {new Date().getFullYear()} Rajasthan Culture Association, SVNIT. All rights reserved.
+          &copy; {new Date().getFullYear()} Rajasthan Culture Association, SVNIT. All rights reserved. | <Link to="/admin" className="text-amber-300 hover:text-white transition-colors">Admin Portal</Link>
         </div>
       </div>
     </footer>
