@@ -112,24 +112,25 @@ const AdminDashboard = () => {
 
   if (!token) {
     return (
-      <div className="min-h-screen pt-24 pb-12 flex items-center justify-center rajasthani-bg p-4 flex-col">
-        <h1 className="text-4xl text-rajasthan-navy font-bold font-ethnic mb-2">Restricted Area</h1>
-        <p className="mb-8 text-gray-700 font-medium">Please enter the royal decree (password) to access.</p>
-        <form onSubmit={handleLogin} className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-sm border-t-8 border-rajasthan-navy">
+      <div className="min-h-screen pt-24 pb-12 flex items-center justify-center bg-rajasthan-navy text-white bg-immersive-dust p-4 flex-col">
+        <h1 className="text-4xl text-rajasthan-gold font-bold font-ethnic mb-2 drop-shadow-md">Restricted Area</h1>
+        <p className="mb-8 text-amber-200/80 font-medium font-royal tracking-widest uppercase">Please enter the royal decree (password) to access.</p>
+        <form onSubmit={handleLogin} className="dark-royal-glass p-8 rounded-3xl shadow-[0_0_30px_rgba(212,175,55,0.2)] w-full max-w-sm border-t-4 border-b-4 border-rajasthan-gold transition-all relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-rajasthan-gold/10 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-blue-50 text-rajasthan-navy rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 bg-rajasthan-navy/80 border border-rajasthan-gold/50 shadow-[0_0_15px_rgba(212,175,55,0.4)] text-rajasthan-gold rounded-full flex items-center justify-center">
               <Lock size={32} />
             </div>
           </div>
-          {errorMsg && <p className="text-red-600 text-center mb-4 font-bold bg-red-50 p-2 rounded">{errorMsg}</p>}
+          {errorMsg && <p className="text-red-400 text-center mb-4 font-bold bg-red-900/40 p-2 rounded border border-red-500/50">{errorMsg}</p>}
           <input 
             type="password" 
             placeholder="Super Secret Password" 
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl border-2 border-amber-100 focus:border-rajasthan-navy focus:outline-none mb-6 text-center text-lg tracking-widest"
+            className="w-full px-4 py-3 rounded-xl bg-rajasthan-navy/50 border border-rajasthan-gold/30 text-amber-50 focus:border-rajasthan-gold focus:outline-none mb-6 text-center text-lg tracking-widest placeholder-amber-200/50 shadow-inner"
           />
-          <button type="submit" className="w-full bg-rajasthan-navy text-rajasthan-gold font-bold py-3 px-8 rounded-full shadow-lg hover:-translate-y-1 transition-transform">
+          <button type="submit" className="w-full btn-royal">
             Unlock Vault
           </button>
         </form>
@@ -138,25 +139,25 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="py-16 pt-24 min-h-screen rajasthani-bg text-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-16 pt-24 min-h-screen bg-rajasthan-navy text-white bg-immersive-dust">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
           <div className="flex items-center gap-4">
-            <h1 className="text-4xl font-ethnic font-bold text-rajasthan-navy">Admin Palace</h1>
-            <button onClick={handleLogout} className="flex items-center gap-2 text-red-600 bg-red-50 px-4 py-2 rounded-full hover:bg-red-100 transition-colors font-bold text-sm">
+            <h1 className="text-4xl font-ethnic font-bold text-rajasthan-gold drop-shadow-[0_2px_5px_rgba(0,0,0,0.5)]">Admin Palace</h1>
+            <button onClick={handleLogout} className="flex items-center gap-2 text-rajasthan-red border border-rajasthan-red/40 bg-rajasthan-navy/50 px-4 py-2 rounded-full hover:bg-rajasthan-red/20 transition-all font-bold text-sm tracking-widest uppercase shadow-md">
               <LogOut size={16} /> Logout
             </button>
           </div>
-          <div className="flex bg-white rounded-full shadow-md overflow-hidden">
+          <div className="flex bg-rajasthan-navy/80 border border-rajasthan-gold/40 rounded-full shadow-[0_0_15px_rgba(212,175,55,0.1)] p-1 backdrop-blur-md">
             <button 
               onClick={() => setActiveTab('events')} 
-              className={`px-6 py-2 font-bold ${activeTab === 'events' ? 'bg-rajasthan-navy text-white' : 'hover:bg-gray-100'}`}
+              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'events' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
             >
               Manage Events
             </button>
             <button 
               onClick={() => setActiveTab('members')} 
-              className={`px-6 py-2 font-bold ${activeTab === 'members' ? 'bg-rajasthan-navy text-white' : 'hover:bg-gray-100'}`}
+              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'members' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
             >
               Manage Team
             </button>
@@ -164,21 +165,22 @@ const AdminDashboard = () => {
         </div>
 
         {formData ? (
-          <div className="bg-white p-8 rounded-3xl shadow-xl border-t-4 border-rajasthan-gold">
-            <h2 className="text-2xl font-bold mb-6 font-ethnic text-rajasthan-navy">
+          <div className="dark-royal-glass p-8 rounded-3xl shadow-2xl border-t-4 border-l-4 border-rajasthan-gold/50 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-rajasthan-gold/5 rounded-bl-full -z-10 blur-2xl group-hover:bg-rajasthan-gold/10 transition-colors duration-700"></div>
+            <h2 className="text-2xl font-bold mb-6 font-ethnic text-rajasthan-gold tracking-widest drop-shadow-md">
               {formData._id ? 'Edit' : 'Add New'} {activeTab === 'events' ? 'Event' : 'Member'}
             </h2>
             <form onSubmit={handleSave} className="space-y-6">
               {activeTab === 'events' && (
                 <>
-                  <div><label className="block text-sm font-bold mb-1">Title</label><input required className="w-full p-2 border rounded" value={formData.title || ''} onChange={e => setFormData({...formData, title: e.target.value})} /></div>
-                  <div><label className="block text-sm font-bold mb-1">Description</label><textarea required className="w-full p-2 border rounded" value={formData.description || ''} onChange={e => setFormData({...formData, description: e.target.value})} /></div>
+                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Title</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Event Title" value={formData.title || ''} onChange={e => setFormData({...formData, title: e.target.value})} /></div>
+                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Description</label><textarea required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none min-h-[100px] placeholder-amber-200/30" placeholder="Details about the event" value={formData.description || ''} onChange={e => setFormData({...formData, description: e.target.value})} /></div>
                   <div className="grid grid-cols-2 gap-4">
-                    <div><label className="block text-sm font-bold mb-1">Date</label><input type="date" required className="w-full p-2 border rounded" value={formData.date ? formData.date.split('T')[0] : ''} onChange={e => setFormData({...formData, date: e.target.value})} /></div>
-                    <div><label className="block text-sm font-bold mb-1">Location</label><input required className="w-full p-2 border rounded" value={formData.location || ''} onChange={e => setFormData({...formData, location: e.target.value})} /></div>
+                    <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Date</label><input type="date" required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none [color-scheme:dark]" value={formData.date ? formData.date.split('T')[0] : ''} onChange={e => setFormData({...formData, date: e.target.value})} /></div>
+                    <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Location</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Venue" value={formData.location || ''} onChange={e => setFormData({...formData, location: e.target.value})} /></div>
                   </div>
-                  <div><label className="block text-sm font-bold mb-1">Type</label>
-                    <select className="w-full p-2 border rounded" value={formData.type || 'upcoming'} onChange={e => setFormData({...formData, type: e.target.value})}>
+                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Type</label>
+                    <select className="w-full p-3 bg-rajasthan-navy border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none" value={formData.type || 'upcoming'} onChange={e => setFormData({...formData, type: e.target.value})}>
                       <option value="upcoming">Upcoming</option>
                       <option value="past">Past</option>
                     </select>
@@ -188,12 +190,12 @@ const AdminDashboard = () => {
               {activeTab === 'members' && (
                 <>
                   <div className="grid grid-cols-2 gap-4">
-                    <div><label className="block text-sm font-bold mb-1">Name</label><input required className="w-full p-2 border rounded" value={formData.name || ''} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
-                    <div><label className="block text-sm font-bold mb-1">Role</label><input required className="w-full p-2 border rounded" value={formData.role || ''} onChange={e => setFormData({...formData, role: e.target.value})} /></div>
+                    <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Name</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Full Name" value={formData.name || ''} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
+                    <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Role</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Position" value={formData.role || ''} onChange={e => setFormData({...formData, role: e.target.value})} /></div>
                   </div>
                   <div>
-                    <label className="block text-sm font-bold mb-1">Department</label>
-                    <select className="w-full p-2 border rounded" value={formData.department || 'core'} onChange={e => setFormData({...formData, department: e.target.value})}>
+                    <label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Department</label>
+                    <select className="w-full p-3 bg-rajasthan-navy border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none" value={formData.department || 'core'} onChange={e => setFormData({...formData, department: e.target.value})}>
                       <option value="core">Core</option>
                       <option value="design">Design</option>
                       <option value="tech">Tech</option>
@@ -201,63 +203,63 @@ const AdminDashboard = () => {
                     </select>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <div><label className="block text-sm font-bold mb-1">LinkedIn URL</label><input className="w-full p-2 border rounded" value={formData.socialLinks?.linkedin || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, linkedin: e.target.value}})} /></div>
-                    <div><label className="block text-sm font-bold mb-1">Instagram URL</label><input className="w-full p-2 border rounded" value={formData.socialLinks?.instagram || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, instagram: e.target.value}})} /></div>
+                    <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">LinkedIn URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.socialLinks?.linkedin || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, linkedin: e.target.value}})} /></div>
+                    <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Instagram URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.socialLinks?.instagram || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, instagram: e.target.value}})} /></div>
                   </div>
                 </>
               )}
               
-              <div className="p-4 bg-gray-50 border rounded-xl flex items-center gap-4">
-                {formData.imageUrl ? <img src={formData.imageUrl} className="w-16 h-16 rounded object-cover" /> : <ImageIcon className="w-16 h-16 text-gray-400" />}
-                <div className="flex-grow">
-                  <label className="block text-sm font-bold mb-1">Upload Image securely</label>
-                  <input type="file" accept="image/*" onChange={handleImageUpload} className="w-full" />
-                  {isUploading && <p className="text-sm text-rajasthan-orange mt-1 font-bold">Encrypted Upload in progress...</p>}
+              <div className="p-4 bg-rajasthan-navy/40 border-2 border-dashed border-rajasthan-gold/40 rounded-xl flex items-center gap-6 hover:border-rajasthan-gold transition-colors">
+                {formData.imageUrl ? <img src={formData.imageUrl} className="w-20 h-20 rounded-xl object-cover shadow-[0_0_10px_rgba(212,175,55,0.3)] border border-rajasthan-gold/50" /> : <ImageIcon className="w-20 h-20 text-rajasthan-gold/40" />}
+                <div className="flex-grow relative">
+                  <label className="block text-sm font-bold mb-2 font-royal text-amber-200/80 uppercase tracking-wider">Upload Portrait</label>
+                  <input type="file" accept="image/*" onChange={handleImageUpload} className="w-full text-sm text-amber-50 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-rajasthan-gold file:text-rajasthan-navy hover:file:bg-amber-400 cursor-pointer" />
+                  {isUploading && <p className="text-sm text-rajasthan-gold mt-2 font-bold animate-pulse absolute -bottom-6">Uploading securely to vault...</p>}
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                <button type="button" onClick={() => setFormData(null)} className="px-6 py-2 bg-gray-200 rounded font-bold">Cancel</button>
-                <button type="submit" disabled={isUploading || !formData.imageUrl} className="px-6 py-2 bg-rajasthan-navy text-white rounded font-bold">Save Content</button>
+              <div className="flex gap-4 pt-4">
+                <button type="button" onClick={() => setFormData(null)} className="px-8 py-3 bg-rajasthan-navy/60 border border-rajasthan-gold/40 hover:bg-rajasthan-navy hover:border-rajasthan-gold text-amber-50 rounded-full font-bold transition-all shadow-md tracking-widest uppercase">Cancel</button>
+                <button type="submit" disabled={isUploading || !formData.imageUrl} className="btn-royal-solid disabled:opacity-50 disabled:cursor-not-allowed">Save to Archives</button>
               </div>
             </form>
           </div>
         ) : (
-          <div className="bg-white rounded-3xl shadow-xl overflow-hidden border-t-4 border-rajasthan-gold">
-            <div className="p-6 bg-gray-50 flex justify-between items-center border-b">
-              <h2 className="text-xl font-bold uppercase tracking-wider text-rajasthan-navy">Registered {activeTab}</h2>
+          <div className="dark-royal-glass rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)] overflow-hidden border-t-4 border-l-4 border-rajasthan-gold/40">
+            <div className="p-6 bg-rajasthan-navy/80 flex justify-between items-center border-b border-rajasthan-gold/30">
+              <h2 className="text-2xl font-bold font-ethnic uppercase tracking-widest text-rajasthan-gold drop-shadow-md">Royal {activeTab} Roster</h2>
               <button 
                 onClick={() => setFormData(activeTab === 'events' ? { type: 'upcoming', date: new Date().toISOString() } : { department: 'core', socialLinks: {} })}
-                className="flex items-center gap-2 bg-rajasthan-navy text-rajasthan-gold px-4 py-2 rounded shadow hover:bg-rajasthan-blue"
+                className="btn-royal py-2 px-6 text-sm"
               >
-                <Plus size={18} /> Add New
+                <Plus size={18} className="mr-2" /> Add New
               </button>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-gray-100 uppercase text-xs tracking-wider">
-                    <th className="p-4 border-b">Image</th>
-                    <th className="p-4 border-b">{activeTab === 'events' ? 'Title' : 'Name'}</th>
-                    <th className="p-4 border-b">{activeTab === 'events' ? 'Location Date' : 'Role & Dept'}</th>
-                    <th className="p-4 border-b text-right">Actions</th>
+                  <tr className="bg-rajasthan-navy/60 uppercase text-xs tracking-widest font-royal text-amber-200/70 border-b border-rajasthan-gold/20">
+                    <th className="p-5">Portrait</th>
+                    <th className="p-5">{activeTab === 'events' ? 'Title' : 'Name'}</th>
+                    <th className="p-5">{activeTab === 'events' ? 'Location & Date' : 'Role & Dept'}</th>
+                    <th className="p-5 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-rajasthan-gold/10">
                   {items.map(item => (
-                    <tr key={item._id} className="hover:bg-gray-50 border-b last:border-0">
-                      <td className="p-4"><img src={item.imageUrl} className="w-12 h-12 rounded-full object-cover shadow border border-gray-200" /></td>
-                      <td className="p-4 font-bold text-gray-800">{item.title || item.name}</td>
-                      <td className="p-4 text-sm text-gray-600">
+                    <tr key={item._id} className="hover:bg-rajasthan-navy/40 transition-colors group">
+                      <td className="p-5"><img src={item.imageUrl} className="w-14 h-14 rounded-full object-cover shadow-[0_0_10px_rgba(212,175,55,0.2)] border-2 border-rajasthan-gold/30 group-hover:border-rajasthan-gold transition-colors" /></td>
+                      <td className="p-5 font-bold text-amber-50 text-lg">{item.title || item.name}</td>
+                      <td className="p-5 text-sm text-amber-200/60 font-medium">
                         {activeTab === 'events' ? `${item.location} • ${new Date(item.date).toLocaleDateString()}` : `${item.role} • ${(item.department || '').toUpperCase()}`}
                       </td>
-                      <td className="p-4 text-right space-x-3">
-                        <button onClick={() => setFormData(item)} className="text-blue-600 hover:text-blue-900"><Edit size={20} /></button>
-                        <button onClick={() => handleDelete(item._id)} className="text-red-500 hover:text-red-800"><Trash2 size={20} /></button>
+                      <td className="p-5 text-right space-x-4">
+                        <button onClick={() => setFormData(item)} className="text-rajasthan-gold hover:text-amber-300 transition-colors transform hover:scale-110 inline-block drop-shadow-md"><Edit size={22} /></button>
+                        <button onClick={() => handleDelete(item._id)} className="text-rajasthan-red hover:text-red-400 transition-colors transform hover:scale-110 inline-block drop-shadow-md"><Trash2 size={22} /></button>
                       </td>
                     </tr>
                   ))}
-                  {items.length === 0 && <tr><td colSpan="4" className="p-8 text-center text-gray-500">No data found. Add some!</td></tr>}
+                  {items.length === 0 && <tr><td colSpan="4" className="p-12 text-center text-amber-200/50 font-royal tracking-widest uppercase text-lg">The archives are empty. Add a new entry!</td></tr>}
                 </tbody>
               </table>
             </div>
