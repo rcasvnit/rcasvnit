@@ -58,30 +58,30 @@ const Team = () => {
                 className="group relative"
               >
                 {/* Decorative Frame Behind */}
-                <div className="absolute inset-0 bg-rajasthan-gold rounded-t-full rounded-b-lg transform translate-x-2 translate-y-2 opacity-30 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-500"></div>
+                <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-2 translate-y-2 opacity-30 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-500"></div>
                 
-                <div className="dark-royal-glass rounded-t-full rounded-b-lg overflow-hidden relative shadow-2xl group-hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.4)] transition-shadow duration-500 z-10 outline outline-1 outline-offset-[-4px] outline-rajasthan-gold/30">
-                  <div className="h-80 overflow-hidden relative bg-black/50">
+                <div className="dark-royal-glass rounded-2xl overflow-hidden relative shadow-2xl group-hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.4)] transition-shadow duration-500 z-10 outline outline-1 outline-offset-[-4px] outline-rajasthan-gold/30 flex flex-col h-full bg-rajasthan-navy">
+                  <div className="h-72 overflow-hidden relative bg-black/50">
                     <img 
                       src={member.imageUrl} 
                       alt={member.name} 
-                      className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-out" 
+                      className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-rajasthan-navy via-transparent to-transparent opacity-90"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-rajasthan-navy via-transparent to-transparent opacity-80"></div>
                   </div>
                   
-                  <div className="absolute bottom-0 w-full p-6 text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-rajasthan-navy via-rajasthan-navy/90 to-transparent pt-12">
-                    <h3 className="text-2xl font-bold font-ethnic text-rajasthan-gold mb-1">{member.name}</h3>
-                    <p className="text-amber-100 font-royal italic uppercase text-xs tracking-widest mb-4">{member.role}</p>
+                  <div className="p-6 text-center transform flex-grow flex flex-col justify-end bg-rajasthan-navy relative z-20 -mt-8 pt-8">
+                    <h3 className="text-2xl font-bold font-ethnic text-rajasthan-gold mb-1 truncate">{member.name}</h3>
+                    <p className="text-amber-100/80 font-royal italic uppercase text-xs tracking-widest mb-4 truncate">{member.role}</p>
                     
-                    <div className="flex justify-center space-x-5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                    <div className="flex justify-center space-x-6 mt-auto pb-2 border-t border-rajasthan-gold/10 pt-4">
                       {member.socialLinks?.linkedin && (
-                        <a href={member.socialLinks.linkedin} className="text-rajasthan-gold hover:text-white transition-colors transform hover:scale-110">
+                        <a href={member.socialLinks.linkedin} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
                           <Linkedin size={20} />
                         </a>
                       )}
                       {member.socialLinks?.instagram && (
-                        <a href={member.socialLinks.instagram} className="text-rajasthan-gold hover:text-white transition-colors transform hover:scale-110">
+                        <a href={member.socialLinks.instagram} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
                           <Instagram size={20} />
                         </a>
                       )}
