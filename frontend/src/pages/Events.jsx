@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Calendar, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -44,7 +45,7 @@ const Events = () => {
         >
           {events.map((event) => (
             <motion.div key={event._id} variants={cardVariants} className="palace-card flex flex-col group">
-              <div className="h-72 w-full relative overflow-hidden bg-rajasthan-navy">
+              <Link to={`/events/${event._id}`} className="h-72 w-full relative overflow-hidden bg-rajasthan-navy block">
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
                 <img 
                   src={event.imageUrl} 
@@ -56,7 +57,7 @@ const Events = () => {
                     {event.type}
                   </span>
                 </div>
-              </div>
+              </Link>
               <div className="p-10 flex-grow flex flex-col justify-between dark-royal-glass relative border-t-2 border-rajasthan-gold/30">
                 {/* Mandalic watermark */}
                 <div className="absolute bottom-0 right-0 w-48 h-48 bg-texture-mandala opacity-[0.05] pointer-events-none mix-blend-screen"></div>
@@ -77,9 +78,9 @@ const Events = () => {
                   </div>
                 </div>
                 
-                <button className="self-end text-rajasthan-saffron font-royal font-bold uppercase tracking-widest text-sm border-b-2 border-rajasthan-gold/30 hover:border-rajasthan-gold hover:text-white transition-all pb-1 flex items-center gap-2">
+                <Link to={`/events/${event._id}`} className="self-end text-rajasthan-saffron font-royal font-bold uppercase tracking-widest text-sm border-b-2 border-rajasthan-gold/30 hover:border-rajasthan-gold hover:text-white transition-all pb-1 flex items-center gap-2">
                   Discover Details <span className="text-xl">&rsaquo;</span>
-                </button>
+                </Link>
               </div>
             </motion.div>
           ))}

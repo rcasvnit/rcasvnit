@@ -68,6 +68,14 @@ router.get('/events', async (req, res) => {
   } catch (error) { res.status(500).json({ error: error.message }); }
 });
 
+router.get('/events/:id', async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    if (!event) return res.status(404).json({ error: 'Event not found' });
+    res.json(event);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
 router.post('/events', authenticateToken, async (req, res) => {
   try {
     const event = new Event(req.body);

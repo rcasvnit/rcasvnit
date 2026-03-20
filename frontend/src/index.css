@@ -41,11 +41,11 @@
 
   /* A vibrant royal block printed card style */
   .palace-card {
-    @apply bg-white rounded-t-full rounded-b-2xl shadow-xl border-x-2 border-b-2 border-rajasthan-gold/30 hover:shadow-2xl hover:border-rajasthan-gold transition-all duration-500 overflow-hidden relative;
+    @apply bg-rajasthan-navy rounded-2xl shadow-2xl border border-rajasthan-gold/30 hover:shadow-[0_0_30px_rgba(212,175,55,0.3)] hover:border-rajasthan-gold transition-all duration-500 overflow-hidden relative;
   }
   .palace-card::before {
     content: '';
-    @apply absolute top-0 inset-x-0 h-4 bg-gradient-to-r from-rajasthan-saffron via-rajasthan-red to-rajasthan-maroon;
+    @apply absolute top-0 inset-x-0 h-2 z-10 bg-gradient-to-r from-rajasthan-gold via-rajasthan-saffron to-rajasthan-gold;
   }
 }
 

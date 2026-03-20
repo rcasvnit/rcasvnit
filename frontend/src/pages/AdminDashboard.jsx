@@ -74,6 +74,29 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleAdditionalImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setIsUploading(true);
+    const formDataObj = new FormData();
+    formDataObj.append('image', file);
+    try {
+      const res = await fetch('http://localhost:5000/api/upload', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: formDataObj
+      });
+      if (res.status === 401 || res.status === 403) return handleLogout();
+      const data = await res.json();
+      setFormData({ ...formData, additionalImages: [...(formData.additionalImages || []), data.imageUrl] });
+    } catch (err) {
+      console.error(err);
+      alert('Error uploading additional image');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleSave = async (e) => {
     e.preventDefault();
     const isNew = !formData._id;
@@ -174,7 +197,9 @@ const AdminDashboard = () => {
               {activeTab === 'events' && (
                 <>
                   <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Title</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Event Title" value={formData.title || ''} onChange={e => setFormData({...formData, title: e.target.value})} /></div>
-                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Description</label><textarea required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none min-h-[100px] placeholder-amber-200/30" placeholder="Details about the event" value={formData.description || ''} onChange={e => setFormData({...formData, description: e.target.value})} /></div>
+                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Short Summary</label><textarea required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none min-h-[50px] placeholder-amber-200/30" placeholder="Brief summary" value={formData.description || ''} onChange={e => setFormData({...formData, description: e.target.value})} /></div>
+                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">The Legend (Full Description)</label><textarea className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none min-h-[100px] placeholder-amber-200/30" placeholder="Complete details for the event page" value={formData.fullDescription || ''} onChange={e => setFormData({...formData, fullDescription: e.target.value})} /></div>
+                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Royal Purpose</label><textarea className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none min-h-[60px] placeholder-amber-200/30" placeholder="Why is this event celebrated?" value={formData.purpose || ''} onChange={e => setFormData({...formData, purpose: e.target.value})} /></div>
                   <div className="grid grid-cols-2 gap-4">
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Date</label><input type="date" required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none [color-scheme:dark]" value={formData.date ? formData.date.split('T')[0] : ''} onChange={e => setFormData({...formData, date: e.target.value})} /></div>
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Location</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Venue" value={formData.location || ''} onChange={e => setFormData({...formData, location: e.target.value})} /></div>
@@ -184,6 +209,23 @@ const AdminDashboard = () => {
                       <option value="upcoming">Upcoming</option>
                       <option value="past">Past</option>
                     </select>
+                  </div>
+                  
+                  {/* Additional Gallery Images Feature */}
+                  <div className="p-4 bg-rajasthan-navy/40 border border-rajasthan-gold/30 rounded-xl">
+                    <label className="block text-sm font-bold mb-2 font-royal text-amber-200/80 uppercase tracking-wider">Event Image Gallery</label>
+                    <div className="flex flex-wrap gap-4 mb-4">
+                      {formData.additionalImages && formData.additionalImages.map((img, i) => (
+                        <div key={i} className="relative group w-20 h-20">
+                          <img src={img} className="w-full h-full object-cover rounded shadow" />
+                          <button type="button" onClick={() => setFormData({...formData, additionalImages: formData.additionalImages.filter((_, idx) => idx !== i)})} className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">&times;</button>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="relative">
+                      <input type="file" accept="image/*" onChange={handleAdditionalImageUpload} className="w-full text-sm text-amber-50 file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-rajasthan-gold file:text-rajasthan-navy hover:file:bg-amber-400 cursor-pointer" />
+                      {isUploading && <p className="text-xs text-rajasthan-gold mt-1 animate-pulse">Uploading...</p>}
+                    </div>
                   </div>
                 </>
               )}
