@@ -3,6 +3,7 @@ import Event from '../models/Event.js';
 import Member from '../models/Member.js';
 import Sponsor from '../models/Sponsor.js';
 import Message from '../models/Message.js';
+import Alumni from '../models/Alumni.js';
 import multer from 'multer';
 import nodemailer from 'nodemailer';
 import { v2 as cloudinary } from 'cloudinary';
@@ -123,6 +124,35 @@ router.put('/members/:id', authenticateToken, async (req, res) => {
 router.delete('/members/:id', authenticateToken, async (req, res) => {
   try {
     await Member.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Deleted successfully' });
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.get('/alumni', async (req, res) => {
+  try {
+    const alumni = await Alumni.find().sort({ year: -1, name: 1 });
+    res.json(alumni);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.post('/alumni', authenticateToken, async (req, res) => {
+  try {
+    const alumni = new Alumni(req.body);
+    await alumni.save();
+    res.status(201).json(alumni);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.put('/alumni/:id', authenticateToken, async (req, res) => {
+  try {
+    const alumni = await Alumni.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(alumni);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.delete('/alumni/:id', authenticateToken, async (req, res) => {
+  try {
+    await Alumni.findByIdAndDelete(req.params.id);
     res.json({ message: 'Deleted successfully' });
   } catch (error) { res.status(500).json({ error: error.message }); }
 });

@@ -184,6 +184,12 @@ const AdminDashboard = () => {
             >
               Manage Team
             </button>
+            <button 
+              onClick={() => setActiveTab('alumni')} 
+              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'alumni' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
+            >
+              Manage Alumni
+            </button>
           </div>
         </div>
 
@@ -191,7 +197,7 @@ const AdminDashboard = () => {
           <div className="dark-royal-glass p-8 rounded-3xl shadow-2xl border-t-4 border-l-4 border-rajasthan-gold/50 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-rajasthan-gold/5 rounded-bl-full -z-10 blur-2xl group-hover:bg-rajasthan-gold/10 transition-colors duration-700"></div>
             <h2 className="text-2xl font-bold mb-6 font-ethnic text-rajasthan-gold tracking-widest drop-shadow-md">
-              {formData._id ? 'Edit' : 'Add New'} {activeTab === 'events' ? 'Event' : 'Member'}
+              {formData._id ? 'Edit' : 'Add New'} {activeTab === 'events' ? 'Event' : (activeTab === 'members' ? 'Member' : 'Alumni')}
             </h2>
             <form onSubmit={handleSave} className="space-y-6">
               {activeTab === 'events' && (
@@ -250,6 +256,19 @@ const AdminDashboard = () => {
                   </div>
                 </>
               )}
+              {activeTab === 'alumni' && (
+                <>
+                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Name</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Full Name" value={formData.name || ''} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
+                  <div>
+                    <label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Year (Batch)</label>
+                    <input required type="number" min="1990" max="2100" className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="e.g. 2024" value={formData.year || ''} onChange={e => setFormData({...formData, year: e.target.value})} />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">LinkedIn URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.socialLinks?.linkedin || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, linkedin: e.target.value}})} /></div>
+                    <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Instagram URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.socialLinks?.instagram || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, instagram: e.target.value}})} /></div>
+                  </div>
+                </>
+              )}
               
               <div className="p-4 bg-rajasthan-navy/40 border-2 border-dashed border-rajasthan-gold/40 rounded-xl flex items-center gap-6 hover:border-rajasthan-gold transition-colors">
                 {formData.imageUrl ? <img src={formData.imageUrl} className="w-20 h-20 rounded-xl object-cover shadow-[0_0_10px_rgba(212,175,55,0.3)] border border-rajasthan-gold/50" /> : <ImageIcon className="w-20 h-20 text-rajasthan-gold/40" />}
@@ -271,7 +290,7 @@ const AdminDashboard = () => {
             <div className="p-6 bg-rajasthan-navy/80 flex justify-between items-center border-b border-rajasthan-gold/30">
               <h2 className="text-2xl font-bold font-ethnic uppercase tracking-widest text-rajasthan-gold drop-shadow-md">Royal {activeTab} Roster</h2>
               <button 
-                onClick={() => setFormData(activeTab === 'events' ? { type: 'upcoming', date: new Date().toISOString() } : { department: 'core', socialLinks: {} })}
+                onClick={() => setFormData(activeTab === 'events' ? { type: 'upcoming', date: new Date().toISOString() } : (activeTab === 'members' ? { department: 'core', socialLinks: {} } : { year: new Date().getFullYear().toString(), department: 'core', socialLinks: {} }))}
                 className="btn-royal py-2 px-6 text-sm"
               >
                 <Plus size={18} className="mr-2" /> Add New
@@ -283,7 +302,7 @@ const AdminDashboard = () => {
                   <tr className="bg-rajasthan-navy/60 uppercase text-xs tracking-widest font-royal text-amber-200/70 border-b border-rajasthan-gold/20">
                     <th className="p-5">Portrait</th>
                     <th className="p-5">{activeTab === 'events' ? 'Title' : 'Name'}</th>
-                    <th className="p-5">{activeTab === 'events' ? 'Location & Date' : 'Role & Dept'}</th>
+                    <th className="p-5">{activeTab === 'events' ? 'Location & Date' : (activeTab === 'alumni' ? 'Batch Year' : 'Role & Dept')}</th>
                     <th className="p-5 text-right">Actions</th>
                   </tr>
                 </thead>
@@ -293,7 +312,7 @@ const AdminDashboard = () => {
                       <td className="p-5"><img src={item.imageUrl} className="w-14 h-14 rounded-full object-cover shadow-[0_0_10px_rgba(212,175,55,0.2)] border-2 border-rajasthan-gold/30 group-hover:border-rajasthan-gold transition-colors" /></td>
                       <td className="p-5 font-bold text-amber-50 text-lg">{item.title || item.name}</td>
                       <td className="p-5 text-sm text-amber-200/60 font-medium">
-                        {activeTab === 'events' ? `${item.location} • ${new Date(item.date).toLocaleDateString()}` : `${item.role} • ${(item.department || '').toUpperCase()}`}
+                        {activeTab === 'events' ? `${item.location} • ${new Date(item.date).toLocaleDateString()}` : (activeTab === 'alumni' ? `Batch of ${item.year}` : `${item.role} • ${(item.department || '').toUpperCase()}`)}
                       </td>
                       <td className="p-5 text-right space-x-4">
                         <button onClick={() => setFormData(item)} className="text-rajasthan-gold hover:text-amber-300 transition-colors transform hover:scale-110 inline-block drop-shadow-md"><Edit size={22} /></button>

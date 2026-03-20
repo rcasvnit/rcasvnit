@@ -10,6 +10,7 @@ import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import AdminDashboard from './pages/AdminDashboard';
 import EventDetails from './pages/EventDetails';
+import Alumni from './pages/Alumni';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/team" element={<Team />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<EventDetails />} />
+          <Route path="/alumni" element={<Alumni />} />
           <Route path="/sponsors" element={<Sponsors />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
