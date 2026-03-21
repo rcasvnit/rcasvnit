@@ -15,7 +15,7 @@
 
 @layer utilities {
   .royal-glass {
-    @apply bg-white/80 backdrop-blur-md border border-rajasthan-gold/30 shadow-[0_8px_32px_0_rgba(212,175,55,0.15)];
+    @apply bg-rajasthan-navy/70 backdrop-blur-md border border-rajasthan-gold/30 shadow-[0_8px_32px_0_rgba(212,175,55,0.15)];
   }
   
   .dark-royal-glass {

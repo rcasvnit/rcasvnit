@@ -42,7 +42,9 @@ const Alumni = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-rajasthan-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] mb-6">Our Royal Alumni</h1>
+          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron mb-6 tracking-wide drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] pb-2 inline-block">
+            Our Royal <span className="text-rajasthan-saffron">Alumni</span>
+          </h1>
           <div className="w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-10"></div>
           
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6 max-w-3xl mx-auto px-6">

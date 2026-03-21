@@ -32,7 +32,9 @@ const Events = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-rajasthan-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] mb-6">Utsav <span className="text-rajasthan-saffron">&</span> Festivals</h1>
+          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] mb-6 pb-2 inline-block">
+            Utsav <span className="text-rajasthan-saffron">&</span> Festivals
+          </h1>
           <div className="w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-8"></div>
           <p className="max-w-2xl mx-auto text-xl text-amber-50/90 font-royal">Explore the vibrant celebrations, magnificent gatherings, and historic re-enactments that bring the colors of Rajasthan to life.</p>
         </motion.div>
@@ -64,7 +66,7 @@ const Events = () => {
                 
                 <div>
                   <h3 className="text-4xl font-bold font-ethnic text-rajasthan-gold mb-4 drop-shadow-sm">{event.title}</h3>
-                  <p className="text-gray-300 mb-8 font-royal text-lg leading-relaxed line-clamp-3">{event.description}</p>
+                  <p className="text-amber-50/80 mb-8 font-royal text-lg leading-relaxed line-clamp-3">{event.description}</p>
                 </div>
                 
                 <div className="space-y-4 mb-8 font-royal tracking-wide text-white">
@@ -87,9 +89,9 @@ const Events = () => {
           
           {events.length === 0 && (
             <div className="col-span-full py-20 text-center">
-              <div className="inline-block p-10 royal-glass rounded-2xl">
-                <p className="text-2xl font-royal text-rajasthan-navy mb-2">The Royal Calendar is being planned.</p>
-                <p className="text-rajasthan-saffron tracking-widest uppercase text-sm">Check back soon for upcoming grand festivities.</p>
+              <div className="inline-block p-10 dark-royal-glass rounded-2xl border border-rajasthan-gold/30">
+                <p className="text-2xl font-ethnic text-rajasthan-gold mb-2">The Royal Calendar is being planned.</p>
+                <p className="text-rajasthan-saffron tracking-widest uppercase text-sm font-royal">Check back soon for upcoming grand festivities.</p>
               </div>
             </div>
           )}

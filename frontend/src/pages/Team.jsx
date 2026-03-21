@@ -25,7 +25,9 @@ const Team = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-rajasthan-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] mb-6">Our Royal Council</h1>
+          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] mb-6 pb-2">
+            Our Royal <span className="text-rajasthan-saffron">Council</span>
+          </h1>
           <div className="w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-10"></div>
           
           <div className="flex flex-wrap justify-center gap-4 border-y border-rajasthan-gold/30 py-6 max-w-3xl mx-auto bg-rajasthan-navy/50 backdrop-blur-md rounded-full px-6 shadow-inner">

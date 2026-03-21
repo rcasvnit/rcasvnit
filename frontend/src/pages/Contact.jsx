@@ -38,7 +38,9 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-rajasthan-gold mb-6 tracking-wide drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">Reach Out to Us</h1>
+          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron mb-6 tracking-wide drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] pb-2 inline-block">
+            Reach Out <span className="text-rajasthan-saffron">to Us</span>
+          </h1>
           <div className="w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-8"></div>
           <p className="max-w-2xl mx-auto text-xl font-royal text-amber-50/90 tracking-wide">Got a question or want to collaborate? Send us a royal decree (or just an email), and we'll get right back to you!</p>
         </motion.div>

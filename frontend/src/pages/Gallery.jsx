@@ -28,18 +28,20 @@ const Gallery = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-rajasthan-gold mb-6 drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">Gallery of Memories</h1>
+          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron mb-6 drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] pb-2 inline-block">
+            Gallery of <span className="text-rajasthan-saffron">Memories</span>
+          </h1>
           <div className="w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-10"></div>
           
-          <div className="flex flex-wrap justify-center gap-4 py-6 max-w-4xl mx-auto border-y border-rajasthan-gold/30 bg-rajasthan-navy/50 shadow-inner backdrop-blur-md rounded-full px-4">
+          <div className="flex flex-wrap justify-center gap-3 py-6 max-w-4xl mx-auto">
             {categories.map(c => (
               <button
                 key={c}
                 onClick={() => setFilter(c)}
-                className={`px-8 py-2 rounded-full font-royal font-bold tracking-widest uppercase text-sm transition-all duration-300 ${
+                className={`px-8 py-2 rounded-full font-royal font-bold tracking-widest uppercase text-sm transition-all duration-300 border ${
                   filter === c 
-                  ? 'bg-gradient-to-r from-rajasthan-maroon to-rajasthan-red text-rajasthan-gold shadow-lg scale-105' 
-                  : 'bg-transparent text-amber-50 hover:bg-rajasthan-navy hover:text-rajasthan-gold hover:shadow-md'
+                  ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy border-transparent shadow-lg scale-105' 
+                  : 'bg-rajasthan-navy/60 text-amber-50 border-rajasthan-gold/30 hover:border-rajasthan-gold hover:text-rajasthan-gold'
                 }`}
               >
                 {c.charAt(0).toUpperCase() + c.slice(1)}
@@ -58,7 +60,7 @@ const Gallery = () => {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.5 }}
                 key={img.id} 
-                className="relative group rounded-[30px] overflow-hidden shadow-2xl aspect-square border-4 border-white outline outline-1 outline-offset-2 outline-rajasthan-gold/30"
+                className="relative group rounded-2xl overflow-hidden shadow-2xl aspect-square border border-rajasthan-gold/30 dark-royal-glass"
               >
                 <div className="absolute inset-0 bg-rajasthan-navy/10 z-10 group-hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
                 <img 

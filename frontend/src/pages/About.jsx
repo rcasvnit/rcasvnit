@@ -40,7 +40,7 @@ const About = () => {
               Founded over a decade ago, the Rajputana Cultural Association (RCA) began with a simple yet profound vision: to create a home away from home for the vibrant youth of Rajasthan. 
             </p>
             
-            <p className="text-lg font-sans text-gray-300 leading-relaxed">
+            <p className="text-lg font-royal text-amber-50/80 leading-relaxed">
               What started as a small gathering of culturally enthusiastic students has now evolved into one of the most prominent cultural organizations on campus.
               We stand as a testament to the enduring spirit of Rajputana, bringing alive the tales of valor, the colors of the desert, and the warmth of Rajasthani hospitality in every event we host.
             </p>
