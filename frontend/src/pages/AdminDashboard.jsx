@@ -9,10 +9,22 @@ const AdminDashboard = () => {
   const [formData, setFormData] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [albums, setAlbums] = useState([]);
 
   useEffect(() => {
-    if (token) fetchItems();
+    if (token) {
+      fetchItems();
+      if (activeTab === 'gallery') fetchAlbums();
+    }
   }, [activeTab, token]);
+
+  const fetchAlbums = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/albums');
+      const data = await res.json();
+      setAlbums(data);
+    } catch (err) { console.error(err); }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -52,6 +64,13 @@ const AdminDashboard = () => {
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    
+    // Frontend Check: Don't even start the network request if too big
+    if (file.size > 10 * 1024 * 1024) {
+      alert(`The image "${file.name}" is too large (Max size: 10MB). Please resize or compress it before uploading to our archives.`);
+      return;
+    }
+    
     setIsUploading(true);
     const formDataObj = new FormData();
     formDataObj.append('image', file);
@@ -63,9 +82,13 @@ const AdminDashboard = () => {
         },
         body: formDataObj
       });
+      if (res.status === 413) {
+        alert('File too large. Maximum size allowed is 10MB.');
+        return;
+      }
       if (res.status === 401 || res.status === 403) return handleLogout();
       const data = await res.json();
-      setFormData({ ...formData, imageUrl: data.imageUrl });
+      setFormData(prev => ({ ...prev, imageUrl: data.imageUrl }));
     } catch (err) {
       console.error(err);
       alert('Error uploading image');
@@ -86,9 +109,13 @@ const AdminDashboard = () => {
         headers: { 'Authorization': `Bearer ${token}` },
         body: formDataObj
       });
+      if (res.status === 413) {
+        alert('File too large. Maximum size allowed is 10MB.');
+        return;
+      }
       if (res.status === 401 || res.status === 403) return handleLogout();
       const data = await res.json();
-      setFormData({ ...formData, additionalImages: [...(formData.additionalImages || []), data.imageUrl] });
+      setFormData(prev => ({ ...prev, additionalImages: [...(prev.additionalImages || []), data.imageUrl] }));
     } catch (err) {
       console.error(err);
       alert('Error uploading additional image');
@@ -97,9 +124,70 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleBulkImageUpload = async (e) => {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+    
+    // Pre-check all files before starting batch upload
+    const oversizedFiles = files.filter(f => f.size > 10 * 1024 * 1024);
+    if (oversizedFiles.length > 0) {
+      const names = oversizedFiles.map(f => f.name).join(', ');
+      alert(`Oops! The following files exceed our 10MB royal limit: ${names}. All files must be compressed before addition.`);
+      return;
+    }
+
+    setIsUploading(true);
+    
+    const uploadedUrls = [];
+    for (const file of files) {
+      const formDataObj = new FormData();
+      formDataObj.append('image', file);
+      try {
+        const res = await fetch('http://localhost:5000/api/upload', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: formDataObj
+        });
+        if (res.status === 413) { alert(`File ${file.name} too large (Max 10MB)`); continue; }
+        if (res.status === 401 || res.status === 403) return handleLogout();
+        const data = await res.json();
+        uploadedUrls.push(data.imageUrl);
+      } catch (err) { console.error(err); }
+    }
+    setFormData(prev => ({ ...prev, images: [...(prev.images || []), ...uploadedUrls] }));
+    setIsUploading(false);
+  };
+
   const handleSave = async (e) => {
     e.preventDefault();
     const isNew = !formData._id;
+    
+    // Gallery Save (Handles consolidation by eventName)
+    if (activeTab === 'gallery') {
+      try {
+        const url = `http://localhost:5000/api/gallery${isNew ? '' : `/${formData._id}`}`;
+        const res = await fetch(url, {
+          method: isNew ? 'POST' : 'PUT',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify(formData)
+        });
+        
+        if (!res.ok) {
+          const errorData = await res.json();
+          if (errorData.error?.includes('duplicate key')) {
+            alert('This event already exists. Please find it in the list and click "Edit" to add more images.');
+          } else {
+            alert(`Error saving: ${errorData.error}`);
+          }
+          return;
+        }
+        setFormData(null);
+        fetchItems();
+        return;
+      } catch (err) { console.error(err); alert('Error during gallery save'); return; }
+    }
+
+    // Default Save (Other Tabs)
     const url = `http://localhost:5000/api/${activeTab}${isNew ? '' : `/${formData._id}`}`;
     try {
       const res = await fetch(url, {
@@ -202,6 +290,18 @@ const AdminDashboard = () => {
             >
               Partners
             </button>
+            <button 
+              onClick={() => setActiveTab('gallery')} 
+              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'gallery' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
+            >
+              Gallery
+            </button>
+            <button 
+              onClick={() => setActiveTab('albums')} 
+              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'albums' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
+            >
+              Albums
+            </button>
           </div>
         </div>
 
@@ -209,7 +309,7 @@ const AdminDashboard = () => {
           <div className="dark-royal-glass p-8 rounded-3xl shadow-2xl border-t-4 border-l-4 border-rajasthan-gold/50 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-rajasthan-gold/5 rounded-bl-full -z-10 blur-2xl group-hover:bg-rajasthan-gold/10 transition-colors duration-700"></div>
             <h2 className="text-2xl font-bold mb-6 font-ethnic text-rajasthan-gold tracking-widest drop-shadow-md">
-              {formData._id ? 'Edit' : 'Add New'} {activeTab === 'events' ? 'Event' : activeTab === 'members' ? 'Member' : activeTab === 'alumni' ? 'Alumni' : activeTab === 'sponsors' ? 'Bhamashah' : 'Partner'}
+              {formData._id ? 'Edit' : 'Add New'} {activeTab === 'events' ? 'Event' : activeTab === 'members' ? 'Member' : activeTab === 'alumni' ? 'Alumni' : activeTab === 'sponsors' ? 'Bhamashah' : activeTab === 'partners' ? 'Partner' : activeTab === 'gallery' ? 'Image' : 'Album'}
             </h2>
             <form onSubmit={handleSave} className="space-y-6">
               {activeTab === 'events' && (
@@ -300,19 +400,67 @@ const AdminDashboard = () => {
                   </div>
                 </>
               )}
+              {activeTab === 'gallery' && (
+                <>
+                  <div>
+                    <label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Event Name</label>
+                    <input list="event-names" required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="e.g. Rajasthan Diwas 2025" value={formData.eventName || ''} onChange={e => setFormData({...formData, eventName: e.target.value})} />
+                    <datalist id="event-names">
+                      {[...new Set([...items.map(i => i.eventName), ...albums.map(a => a.eventName)])].filter(Boolean).map(name => <option key={name} value={name} />)}
+                    </datalist>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Year</label>
+                    <input required type="number" min="2000" max="2100" className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" value={formData.year || ''} onChange={e => setFormData({...formData, year: e.target.value})} />
+                  </div>
+                </>
+              )}
+              {activeTab === 'albums' && (
+                <>
+                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Event Name</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="e.g. Rajasthan Diwas 2025" value={formData.eventName || ''} onChange={e => setFormData({...formData, eventName: e.target.value})} /></div>
+                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Google Photos Link</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://photos.app.goo.gl/..." value={formData.googlePhotosLink || ''} onChange={e => setFormData({...formData, googlePhotosLink: e.target.value})} /></div>
+                </>
+              )}
               
-              <div className="p-4 bg-rajasthan-navy/40 border-2 border-dashed border-rajasthan-gold/40 rounded-xl flex items-center gap-6 hover:border-rajasthan-gold transition-colors">
-                {formData.imageUrl ? <img src={formData.imageUrl} className="w-20 h-20 rounded-xl object-cover shadow-[0_0_10px_rgba(212,175,55,0.3)] border border-rajasthan-gold/50" /> : <ImageIcon className="w-20 h-20 text-rajasthan-gold/40" />}
-                <div className="flex-grow relative">
-                  <label className="block text-sm font-bold mb-2 font-royal text-amber-200/80 uppercase tracking-wider">Upload Portrait</label>
-                  <input type="file" accept="image/*" onChange={handleImageUpload} className="w-full text-sm text-amber-50 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-rajasthan-gold file:text-rajasthan-navy hover:file:bg-amber-400 cursor-pointer" />
-                  {isUploading && <p className="text-sm text-rajasthan-gold mt-2 font-bold animate-pulse absolute -bottom-6">Uploading securely to vault...</p>}
+              {activeTab !== 'albums' && (
+                <div className="p-4 bg-rajasthan-navy/40 border-2 border-dashed border-rajasthan-gold/40 rounded-xl flex items-center gap-6 hover:border-rajasthan-gold transition-colors">
+                  {formData.imageUrl ? <img src={formData.imageUrl} className="w-20 h-20 rounded-xl object-cover shadow-[0_0_10px_rgba(212,175,55,0.3)] border border-rajasthan-gold/50" /> : <ImageIcon className="w-20 h-20 text-rajasthan-gold/40" />}
+                  <div className="flex-grow relative">
+                    <label className="block text-sm font-bold mb-2 font-royal text-amber-200/80 uppercase tracking-wider">
+                      {activeTab === 'gallery' ? 'Upload Images (Multiple Allowed)' : 'Upload Portrait'}
+                    </label>
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      multiple={activeTab === 'gallery'} 
+                      onChange={activeTab === 'gallery' ? handleBulkImageUpload : handleImageUpload} 
+                      className="w-full text-sm text-amber-50 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-rajasthan-gold file:text-rajasthan-navy hover:file:bg-amber-400 cursor-pointer" 
+                    />
+                    {isUploading && <p className="text-sm text-rajasthan-gold mt-2 font-bold animate-pulse absolute -bottom-6">Uploading securely to vault...</p>}
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {activeTab === 'gallery' && formData.images?.length > 0 && (
+                <div className="flex flex-wrap gap-4 p-4 bg-rajasthan-navy/20 rounded-xl border border-rajasthan-gold/20 mb-6">
+                  {formData.images.map((url, i) => (
+                    <div key={i} className="relative group w-20 h-20">
+                      <img src={url} className="w-full h-full object-cover rounded border border-rajasthan-gold/30" />
+                      <button 
+                        type="button" 
+                        onClick={() => setFormData(prev => ({ ...prev, images: prev.images.filter((_, idx) => idx !== i) }))}
+                        className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs shadow-lg hover:scale-110 transition-transform"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               <div className="flex gap-4 pt-4">
                 <button type="button" onClick={() => setFormData(null)} className="px-8 py-3 bg-rajasthan-navy/60 border border-rajasthan-gold/40 hover:bg-rajasthan-navy hover:border-rajasthan-gold text-amber-50 rounded-full font-bold transition-all shadow-md tracking-widest uppercase">Cancel</button>
-                <button type="submit" disabled={isUploading || !formData.imageUrl} className="btn-royal-solid disabled:opacity-50 disabled:cursor-not-allowed">Save to Archives</button>
+                <button type="submit" disabled={isUploading || (activeTab === 'gallery' ? !formData.images?.length : (activeTab !== 'albums' && !formData.imageUrl))} className="btn-royal-solid disabled:opacity-50 disabled:cursor-not-allowed">Save to Archives</button>
               </div>
             </form>
           </div>
@@ -326,6 +474,8 @@ const AdminDashboard = () => {
                   activeTab === 'members' ? { department: 'core', socialLinks: {} } : 
                   activeTab === 'alumni' ? { year: new Date().getFullYear().toString(), socialLinks: {} } :
                   activeTab === 'sponsors' ? { socialLinks: {} } :
+                  activeTab === 'gallery' ? { eventName: '', year: new Date().getFullYear(), images: [] } :
+                  activeTab === 'albums' ? { eventName: '', googlePhotosLink: '' } :
                   {}
                 )}
                 className="btn-royal py-2 px-6 text-sm"
@@ -337,17 +487,40 @@ const AdminDashboard = () => {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-rajasthan-navy/60 uppercase text-xs tracking-widest font-royal text-amber-200/70 border-b border-rajasthan-gold/20">
-                    <th className="p-5">Portrait</th>
-                    <th className="p-5">{activeTab === 'events' ? 'Title' : 'Name'}</th>
-                    <th className="p-5">{activeTab === 'events' ? 'Location & Date' : activeTab === 'alumni' ? 'Batch Year' : activeTab === 'sponsors' ? 'Social' : activeTab === 'partners' ? 'Category' : 'Role & Dept'}</th>
+                    {activeTab !== 'albums' && <th className="p-5">Portrait</th>}
+                    <th className="p-5">
+                      {activeTab === 'events' ? 'Title' : 
+                       activeTab === 'gallery' ? 'Event Name' : 
+                       activeTab === 'albums' ? 'Event Name' : 
+                       'Name'}
+                    </th>
+                    <th className="p-5">
+                      {activeTab === 'events' ? 'Location & Date' : 
+                       activeTab === 'alumni' ? 'Batch Year' : 
+                       activeTab === 'sponsors' ? 'Social' : 
+                       activeTab === 'partners' ? 'Category' : 
+                       activeTab === 'gallery' ? 'Year' :
+                       activeTab === 'albums' ? 'Photos Link' :
+                       'Role & Dept'}
+                    </th>
                     <th className="p-5 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-rajasthan-gold/10">
-                  {items.map(item => (
+                   {items.map(item => (
                     <tr key={item._id} className="hover:bg-rajasthan-navy/40 transition-colors group">
-                      <td className="p-5"><img src={item.imageUrl} className="w-14 h-14 rounded-full object-cover shadow-[0_0_10px_rgba(212,175,55,0.2)] border-2 border-rajasthan-gold/30 group-hover:border-rajasthan-gold transition-colors" /></td>
-                      <td className="p-5 font-bold text-amber-50 text-lg">{item.title || item.name}</td>
+                      {activeTab !== 'albums' && (
+                        <td className="p-5">
+                          {(activeTab === 'gallery' ? item.images?.[0] : item.imageUrl) ? (
+                            <img src={activeTab === 'gallery' ? item.images[0] : item.imageUrl} className="w-14 h-14 rounded-full object-cover shadow-[0_0_10px_rgba(212,175,55,0.2)] border-2 border-rajasthan-gold/30 group-hover:border-rajasthan-gold transition-colors" />
+                          ) : (
+                            <div className="w-14 h-14 rounded-full bg-rajasthan-navy/40 border-2 border-dashed border-rajasthan-gold/20 flex items-center justify-center">
+                              <ImageIcon className="w-6 h-6 text-rajasthan-gold/20" />
+                            </div>
+                          )}
+                        </td>
+                      )}
+                      <td className="p-5 font-bold text-amber-50 text-lg">{item.eventName || item.title || item.name}</td>
                       <td className="p-5 text-sm text-amber-200/60 font-medium">
                         {activeTab === 'events' 
                           ? `${item.location} • ${new Date(item.date).toLocaleDateString()}` 
@@ -357,6 +530,10 @@ const AdminDashboard = () => {
                           ? `${item.socialLinks?.linkedin ? 'LinkedIn ' : ''}${item.socialLinks?.instagram ? 'Instagram' : ''}` || 'No social links'
                           : activeTab === 'partners'
                           ? item.category || '—'
+                          : activeTab === 'gallery'
+                          ? item.year || '—'
+                          : activeTab === 'albums'
+                          ? <a href={item.googlePhotosLink} target="_blank" rel="noreferrer" className="text-rajasthan-gold hover:underline">Link</a>
                           : `${item.role} • ${(item.department || '').toUpperCase()}`}
                       </td>
                       <td className="p-5 text-right space-x-4">

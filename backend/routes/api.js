@@ -5,6 +5,8 @@ import Sponsor from '../models/Sponsor.js';
 import Message from '../models/Message.js';
 import Alumni from '../models/Alumni.js';
 import Partner from '../models/Partner.js';
+import Gallery from '../models/Gallery.js';
+import Album from '../models/Album.js';
 import multer from 'multer';
 import nodemailer from 'nodemailer';
 import { v2 as cloudinary } from 'cloudinary';
@@ -32,7 +34,10 @@ const storage = new CloudinaryStorage({
     allowed_formats: ['jpg', 'png', 'jpeg', 'webp']
   }
 });
-const upload = multer({ storage });
+const upload = multer({ 
+  storage,
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB Limit
+});
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
@@ -55,12 +60,23 @@ router.post('/login', (req, res) => {
   }
 });
 
-router.post('/upload', authenticateToken, upload.single('image'), (req, res) => {
-  if (req.file) {
-    res.json({ imageUrl: req.file.path }); // Cloudinary provides full URL in "path"
-  } else {
-    res.status(400).json({ error: 'No file uploaded' });
-  }
+router.post('/upload', authenticateToken, (req, res, next) => {
+  upload.single('image')(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(413).json({ error: 'File too large. Max 10MB allowed.' });
+      }
+      return res.status(400).json({ error: err.message });
+    } else if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    
+    if (req.file) {
+      res.json({ imageUrl: req.file.path });
+    } else {
+      res.status(400).json({ error: 'No file uploaded' });
+    }
+  });
 });
 
 router.get('/events', async (req, res) => {
@@ -247,6 +263,66 @@ router.post('/messages', async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
+});
+
+// Gallery Routes
+router.get('/gallery', async (req, res) => {
+  try {
+    const images = await Gallery.find().sort({ year: -1, createdAt: -1 });
+    res.json(images);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.post('/gallery', authenticateToken, async (req, res) => {
+  try {
+    const image = new Gallery(req.body);
+    await image.save();
+    res.status(201).json(image);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.put('/gallery/:id', authenticateToken, async (req, res) => {
+  try {
+    const image = await Gallery.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(image);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.delete('/gallery/:id', authenticateToken, async (req, res) => {
+  try {
+    await Gallery.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Deleted successfully' });
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+// Album (Event Album Links) Routes
+router.get('/albums', async (req, res) => {
+  try {
+    const albums = await Album.find().sort({ createdAt: -1 });
+    res.json(albums);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.post('/albums', authenticateToken, async (req, res) => {
+  try {
+    const album = new Album(req.body);
+    await album.save();
+    res.status(201).json(album);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.put('/albums/:id', authenticateToken, async (req, res) => {
+  try {
+    const album = await Album.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(album);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.delete('/albums/:id', authenticateToken, async (req, res) => {
+  try {
+    await Album.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Deleted successfully' });
+  } catch (error) { res.status(500).json({ error: error.message }); }
 });
 
 export default router;

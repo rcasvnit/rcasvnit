@@ -47,6 +47,15 @@
     content: '';
     @apply absolute top-0 inset-x-0 h-2 z-10 bg-gradient-to-r from-rajasthan-gold via-rajasthan-saffron to-rajasthan-gold;
   }
+
+  /* Utility to hide scrollbars */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 @layer components {
