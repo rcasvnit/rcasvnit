@@ -24,7 +24,7 @@ const Navbar = () => {
     { name: 'Events', path: '/events' },
     { name: 'Team', path: '/team' },
     { name: 'Alumni', path: '/alumni' },
-    { name: 'Sponsors', path: '/sponsors' },
+    { name: 'Bhamashah', path: '/bhamashah' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'Contact', path: '/contact' },
   ];

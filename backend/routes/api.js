@@ -159,10 +159,34 @@ router.delete('/alumni/:id', authenticateToken, async (req, res) => {
 
 router.get('/sponsors', async (req, res) => {
   try {
-    const sponsors = await Sponsor.find().sort({ tier: 1 });
+    const sponsors = await Sponsor.find().sort({ createdAt: -1 });
     res.json(sponsors);
   } catch (error) { res.status(500).json({ error: error.message }); }
 });
+
+router.post('/sponsors', authenticateToken, async (req, res) => {
+  try {
+    const sponsor = new Sponsor(req.body);
+    await sponsor.save();
+    res.status(201).json(sponsor);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.put('/sponsors/:id', authenticateToken, async (req, res) => {
+  try {
+    const sponsor = await Sponsor.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(sponsor);
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.delete('/sponsors/:id', authenticateToken, async (req, res) => {
+  try {
+    await Sponsor.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Deleted successfully' });
+  } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+
 
 router.post('/messages', async (req, res) => {
   try {
