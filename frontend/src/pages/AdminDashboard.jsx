@@ -196,6 +196,12 @@ const AdminDashboard = () => {
             >
               Bhamashah
             </button>
+            <button 
+              onClick={() => setActiveTab('partners')} 
+              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'partners' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
+            >
+              Partners
+            </button>
           </div>
         </div>
 
@@ -203,7 +209,7 @@ const AdminDashboard = () => {
           <div className="dark-royal-glass p-8 rounded-3xl shadow-2xl border-t-4 border-l-4 border-rajasthan-gold/50 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-rajasthan-gold/5 rounded-bl-full -z-10 blur-2xl group-hover:bg-rajasthan-gold/10 transition-colors duration-700"></div>
             <h2 className="text-2xl font-bold mb-6 font-ethnic text-rajasthan-gold tracking-widest drop-shadow-md">
-              {formData._id ? 'Edit' : 'Add New'} {activeTab === 'events' ? 'Event' : (activeTab === 'members' ? 'Member' : (activeTab === 'alumni' ? 'Alumni' : 'Bhamashah'))}
+              {formData._id ? 'Edit' : 'Add New'} {activeTab === 'events' ? 'Event' : activeTab === 'members' ? 'Member' : activeTab === 'alumni' ? 'Alumni' : activeTab === 'sponsors' ? 'Bhamashah' : 'Partner'}
             </h2>
             <form onSubmit={handleSave} className="space-y-6">
               {activeTab === 'events' && (
@@ -284,6 +290,16 @@ const AdminDashboard = () => {
                   </div>
                 </>
               )}
+              {activeTab === 'partners' && (
+                <>
+                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Company Name</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Company / Organisation Name" value={formData.name || ''} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
+                  <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Short Description</label><textarea required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none min-h-[80px] placeholder-amber-200/30" placeholder="1-2 lines about this partner" value={formData.description || ''} onChange={e => setFormData({...formData, description: e.target.value})} /></div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Category</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="e.g. Technology, Finance" value={formData.category || ''} onChange={e => setFormData({...formData, category: e.target.value})} /></div>
+                    <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Website URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.website || ''} onChange={e => setFormData({...formData, website: e.target.value})} /></div>
+                  </div>
+                </>
+              )}
               
               <div className="p-4 bg-rajasthan-navy/40 border-2 border-dashed border-rajasthan-gold/40 rounded-xl flex items-center gap-6 hover:border-rajasthan-gold transition-colors">
                 {formData.imageUrl ? <img src={formData.imageUrl} className="w-20 h-20 rounded-xl object-cover shadow-[0_0_10px_rgba(212,175,55,0.3)] border border-rajasthan-gold/50" /> : <ImageIcon className="w-20 h-20 text-rajasthan-gold/40" />}
@@ -309,7 +325,8 @@ const AdminDashboard = () => {
                   activeTab === 'events' ? { type: 'upcoming', date: new Date().toISOString() } : 
                   activeTab === 'members' ? { department: 'core', socialLinks: {} } : 
                   activeTab === 'alumni' ? { year: new Date().getFullYear().toString(), socialLinks: {} } :
-                  { socialLinks: {} }
+                  activeTab === 'sponsors' ? { socialLinks: {} } :
+                  {}
                 )}
                 className="btn-royal py-2 px-6 text-sm"
               >
@@ -322,7 +339,7 @@ const AdminDashboard = () => {
                   <tr className="bg-rajasthan-navy/60 uppercase text-xs tracking-widest font-royal text-amber-200/70 border-b border-rajasthan-gold/20">
                     <th className="p-5">Portrait</th>
                     <th className="p-5">{activeTab === 'events' ? 'Title' : 'Name'}</th>
-                    <th className="p-5">{activeTab === 'events' ? 'Location & Date' : (activeTab === 'alumni' ? 'Batch Year' : (activeTab === 'sponsors' ? 'Social' : 'Role & Dept'))}</th>
+                    <th className="p-5">{activeTab === 'events' ? 'Location & Date' : activeTab === 'alumni' ? 'Batch Year' : activeTab === 'sponsors' ? 'Social' : activeTab === 'partners' ? 'Category' : 'Role & Dept'}</th>
                     <th className="p-5 text-right">Actions</th>
                   </tr>
                 </thead>
@@ -338,6 +355,8 @@ const AdminDashboard = () => {
                           ? `Batch of ${item.year}` 
                           : activeTab === 'sponsors'
                           ? `${item.socialLinks?.linkedin ? 'LinkedIn ' : ''}${item.socialLinks?.instagram ? 'Instagram' : ''}` || 'No social links'
+                          : activeTab === 'partners'
+                          ? item.category || '—'
                           : `${item.role} • ${(item.department || '').toUpperCase()}`}
                       </td>
                       <td className="p-5 text-right space-x-4">

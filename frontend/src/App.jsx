@@ -11,6 +11,7 @@ import Contact from './pages/Contact';
 import AdminDashboard from './pages/AdminDashboard';
 import EventDetails from './pages/EventDetails';
 import Alumni from './pages/Alumni';
+import IndustrialPartners from './pages/IndustrialPartners';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/events/:id" element={<EventDetails />} />
           <Route path="/alumni" element={<Alumni />} />
           <Route path="/bhamashah" element={<Sponsors />} />
+          <Route path="/partners" element={<IndustrialPartners />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<AdminDashboard />} />
