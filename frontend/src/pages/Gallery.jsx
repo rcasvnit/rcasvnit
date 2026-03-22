@@ -92,13 +92,13 @@ const Gallery = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
         >
-          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron mb-6 drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] pb-2 inline-block">
+          <h1 className="text-4xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron mb-6 drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] pb-2 inline-block">
             Gallery of <span className="text-rajasthan-saffron">Memories</span>
           </h1>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-6"></div>
-          <p className="font-royal text-amber-50/70 text-lg tracking-wide max-w-2xl mx-auto">
+          <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-6"></div>
+          <p className="font-royal text-amber-50/70 text-base md:text-lg tracking-wide max-w-2xl mx-auto px-4">
             A visual chronicle of our heritage, celebrations, and royal gatherings.
           </p>
         </motion.div>
@@ -116,12 +116,12 @@ const Gallery = () => {
             return (
               <section key={event._id} className="mb-24">
                 {/* Event Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 border-b border-rajasthan-gold/20 pb-6">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6 mb-8 md:mb-10 border-b border-rajasthan-gold/20 pb-6">
                   <div>
-                    <h2 className="text-3xl md:text-4xl font-ethnic font-bold text-rajasthan-gold mb-2">
-                      {event.eventName} <span className="text-rajasthan-saffron/60 text-xl font-royal ml-4 tracking-tighter">({event.year})</span>
+                    <h2 className="text-2xl md:text-4xl font-ethnic font-bold text-rajasthan-gold mb-2">
+                      {event.eventName} <span className="text-rajasthan-saffron/60 text-base md:text-xl font-royal ml-2 md:ml-4 tracking-tighter">({event.year})</span>
                     </h2>
-                    <div className="h-1 w-20 bg-rajasthan-saffron rounded-full"></div>
+                    <div className="h-1 w-16 md:w-20 bg-rajasthan-saffron rounded-full"></div>
                   </div>
                   
                   {album && (
@@ -129,9 +129,9 @@ const Gallery = () => {
                       href={album.googlePhotosLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group relative inline-flex items-center gap-3 px-8 py-3 bg-rajasthan-navy/40 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold font-royal font-bold tracking-widest uppercase text-sm hover:bg-rajasthan-gold/10 hover:border-rajasthan-gold transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.1)] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]"
+                      className="group relative inline-flex items-center justify-center gap-2 md:gap-3 px-5 md:px-8 py-2 md:py-3 bg-rajasthan-navy/40 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold font-royal font-bold tracking-widest uppercase text-[10px] md:text-sm hover:bg-rajasthan-gold/10 hover:border-rajasthan-gold transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.1)] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]"
                     >
-                      <ExternalLink size={18} className="group-hover:rotate-12 transition-transform" />
+                      <ExternalLink size={16} className="group-hover:rotate-12 transition-transform" />
                       View Full {event.eventName} Album
                     </a>
                   )}
@@ -142,7 +142,7 @@ const Gallery = () => {
                   <div className="relative group/slider">
                     <div 
                       id={`slider-${event._id}`}
-                      className="flex gap-8 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory pb-8 px-2"
+                      className="flex gap-4 md:gap-8 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory pb-8 px-2"
                     >
                       {event.images.map((imgUrl, imgIdx) => {
                         const globalIndex = allImages.findIndex(i => i.url === imgUrl);
@@ -261,33 +261,39 @@ const Gallery = () => {
                 onClick={() => setSelectedImageIndex(null)}
                 className="fixed inset-0 z-[999999] bg-rajasthan-navy/98 backdrop-blur-3xl flex items-center justify-center p-4 md:p-12 cursor-pointer"
               >
-                {/* Controls - Top priority */}
-                <div className="absolute top-0 inset-x-0 p-8 flex justify-between items-center z-[1000000] pointer-events-none">
-                  <div className="text-rajasthan-gold font-royal tracking-[.2em] uppercase text-sm bg-black/60 px-6 py-2 rounded-full border border-rajasthan-gold/30 pointer-events-auto">
+                {/* Controls - Surfaced to top of stacking context */}
+                <div className="absolute top-0 inset-x-0 p-4 md:p-8 flex justify-between items-center z-[2000000]">
+                  <div className="text-rajasthan-gold font-royal tracking-[.2em] uppercase text-[10px] md:text-sm bg-black/60 px-4 md:px-6 py-2 rounded-full border border-rajasthan-gold/30">
                     {selectedImageIndex + 1} / {allImages.length}
                   </div>
                   <button 
                     onClick={(e) => { e.stopPropagation(); setSelectedImageIndex(null); }}
-                    className="text-white hover:text-rajasthan-gold bg-black/80 hover:bg-rajasthan-red/60 p-5 rounded-full transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] border border-white/10 pointer-events-auto cursor-pointer"
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    className="text-white hover:text-rajasthan-gold bg-black/80 hover:bg-rajasthan-red/60 p-4 md:p-5 rounded-full transition-all shadow-2xl border border-white/10 cursor-pointer pointer-events-auto active:scale-95 flex items-center justify-center z-[2000001]"
                     title="Close Archives"
                   >
-                    <X size={36} />
+                    <X className="w-8 h-8 md:w-9 md:h-9" />
                   </button>
                 </div>
 
                 {/* Navigation Buttons */}
                 <button 
                   onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-                  className="absolute left-4 md:left-8 z-[1000000] text-white/50 hover:text-rajasthan-gold transition-colors p-4"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  className="absolute left-2 md:left-8 z-[2000000] text-white/50 hover:text-rajasthan-gold transition-colors p-2"
                 >
-                  <ChevronLeft size={64} />
+                  <ChevronLeft className="w-10 h-10 md:w-16 md:h-16" />
                 </button>
                 
                 <button 
                   onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                  className="absolute right-4 md:right-8 z-[1000000] text-white/50 hover:text-rajasthan-gold transition-colors p-4"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  className="absolute right-2 md:right-8 z-[2000000] text-white/50 hover:text-rajasthan-gold transition-colors p-2"
                 >
-                  <ChevronRight size={64} />
+                  <ChevronRight className="w-10 h-10 md:w-16 md:h-16" />
                 </button>
 
                 {/* Image Wrapper */}
@@ -309,16 +315,16 @@ const Gallery = () => {
                       className="max-w-full max-h-[70vh] object-contain rounded-lg shadow-[0_0_100px_rgba(212,175,55,0.3)] border border-rajasthan-gold/40"
                     />
                     
-                    <div className="mt-8 text-center bg-black/40 backdrop-blur-md p-6 rounded-2xl border border-white/5 mx-4 max-w-lg">
-                      <h3 className="text-rajasthan-gold font-ethnic text-2xl md:text-3xl drop-shadow-md mb-2">
+                    <div className="mt-6 md:mt-8 text-center bg-black/40 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-white/5 mx-4 max-w-lg">
+                      <h3 className="text-rajasthan-gold font-ethnic text-xl md:text-3xl drop-shadow-md mb-2">
                         {allImages[selectedImageIndex]?.eventName}
                       </h3>
-                      <div className="flex items-center justify-center gap-4">
-                        <span className="h-[1px] w-8 bg-rajasthan-gold/30"></span>
-                        <p className="text-rajasthan-saffron font-royal tracking-widest uppercase text-sm">
+                      <div className="flex items-center justify-center gap-3 md:gap-4">
+                        <span className="h-[1px] w-6 md:w-8 bg-rajasthan-gold/30"></span>
+                        <p className="text-rajasthan-saffron font-royal tracking-widest uppercase text-[10px] md:text-sm">
                           Archived in {allImages[selectedImageIndex]?.year}
                         </p>
-                        <span className="h-[1px] w-8 bg-rajasthan-gold/30"></span>
+                        <span className="h-[1px] w-6 md:w-8 bg-rajasthan-gold/30"></span>
                       </div>
                     </div>
                   </motion.div>
