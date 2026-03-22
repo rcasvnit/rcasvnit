@@ -61,7 +61,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-amber-200/70">
-          <p>&copy; {new Date().getFullYear()} Rajasthan Culture Association, SVNIT. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Rajasthan Cultural Association, SVNIT. All rights reserved.</p>
           <div className="mt-4 md:mt-0 flex gap-4">
             <Link to="/admin" className="hover:text-amber-400 transition-colors uppercase tracking-wider font-bold">Admin Portal</Link>
           </div>
