@@ -30,53 +30,53 @@ const Events = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
         >
-          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] mb-6 pb-2 inline-block">
+          <h1 className="text-4xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] mb-6 pb-2 inline-block">
             Utsav <span className="text-rajasthan-saffron">&</span> Festivals
           </h1>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-8"></div>
-          <p className="max-w-2xl mx-auto text-xl text-amber-50/90 font-royal">Explore the vibrant celebrations, magnificent gatherings, and historic re-enactments that bring the colors of Rajasthan to life.</p>
+          <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-8"></div>
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-amber-50/90 font-royal px-4">Explore the vibrant celebrations, magnificent gatherings, and historic re-enactments that bring the colors of Rajasthan to life.</p>
         </motion.div>
 
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 gap-16"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16"
         >
           {events.map((event) => (
             <motion.div key={event._id} variants={cardVariants} className="palace-card flex flex-col group">
-              <Link to={`/events/${event._id}`} className="h-72 w-full relative overflow-hidden bg-rajasthan-navy block">
+              <Link to={`/events/${event._id}`} className="h-56 sm:h-72 w-full relative overflow-hidden bg-rajasthan-navy block">
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
                 <img 
                   src={event.imageUrl} 
                   alt={event.title} 
                   className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-1000 ease-out opacity-90 group-hover:opacity-100"
                 />
-                <div className="absolute top-6 left-6 z-20">
-                  <span className={`px-6 py-2 text-xs font-royal font-bold uppercase tracking-[0.2em] rounded-sm text-white shadow-lg backdrop-blur-md border border-white/20 ${event.type === 'upcoming' ? 'bg-rajasthan-saffron/90' : 'bg-rajasthan-navy/80'}`}>
+                <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
+                  <span className={`px-4 py-1.5 md:px-6 md:py-2 text-[10px] md:text-xs font-royal font-bold uppercase tracking-[0.2em] rounded-sm text-white shadow-lg backdrop-blur-md border border-white/20 ${event.type === 'upcoming' ? 'bg-rajasthan-saffron/90' : 'bg-rajasthan-navy/80'}`}>
                     {event.type}
                   </span>
                 </div>
               </Link>
-              <div className="p-10 flex-grow flex flex-col justify-between dark-royal-glass relative border-t-2 border-rajasthan-gold/30">
+              <div className="p-6 md:p-10 flex-grow flex flex-col justify-between dark-royal-glass relative border-t-2 border-rajasthan-gold/30">
                 {/* Mandalic watermark */}
-                <div className="absolute bottom-0 right-0 w-48 h-48 bg-texture-mandala opacity-[0.05] pointer-events-none mix-blend-screen"></div>
+                <div className="absolute bottom-0 right-0 w-32 h-32 md:w-48 md:h-48 bg-texture-mandala opacity-[0.05] pointer-events-none mix-blend-screen"></div>
                 
                 <div>
-                  <h3 className="text-4xl font-bold font-ethnic text-rajasthan-gold mb-4 drop-shadow-sm">{event.title}</h3>
-                  <p className="text-amber-50/80 mb-8 font-royal text-lg leading-relaxed line-clamp-3">{event.description}</p>
+                  <h3 className="text-2xl md:text-4xl font-bold font-ethnic text-rajasthan-gold mb-3 md:mb-4 drop-shadow-sm">{event.title}</h3>
+                  <p className="text-base md:text-lg text-amber-50/80 mb-6 md:mb-8 font-royal leading-relaxed line-clamp-3">{event.description}</p>
                 </div>
                 
-                <div className="space-y-4 mb-8 font-royal tracking-wide text-white">
-                  <div className="flex items-center gap-4 bg-rajasthan-navy/60 p-3 rounded-lg border border-rajasthan-gold/20">
-                    <Calendar size={22} className="text-rajasthan-saffron" />
-                    <span className="font-semibold text-lg text-amber-50">{new Date(event.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                <div className="space-y-3 md:space-y-4 mb-6 md:mb-8 font-royal tracking-wide text-white">
+                  <div className="flex items-center gap-3 md:gap-4 bg-rajasthan-navy/60 p-2 md:p-3 rounded-lg border border-rajasthan-gold/20">
+                    <Calendar size={18} md:size={22} className="text-rajasthan-saffron" />
+                    <span className="font-semibold text-base md:text-lg text-amber-50">{new Date(event.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                   </div>
-                  <div className="flex items-center gap-4 bg-rajasthan-navy/60 p-3 rounded-lg border border-rajasthan-gold/20">
-                    <MapPin size={22} className="text-rajasthan-red" />
-                    <span className="font-semibold text-lg text-amber-50">{event.location}</span>
+                  <div className="flex items-center gap-3 md:gap-4 bg-rajasthan-navy/60 p-2 md:p-3 rounded-lg border border-rajasthan-gold/20">
+                    <MapPin size={18} md:size={22} className="text-rajasthan-red" />
+                    <span className="font-semibold text-base md:text-lg text-amber-50">{event.location}</span>
                   </div>
                 </div>
                 

@@ -67,38 +67,38 @@ const EventDetails = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="dark-royal-glass rounded-[2rem] p-8 md:p-12 shadow-2xl border-t-4 border-rajasthan-gold relative overflow-hidden"
+          className="dark-royal-glass rounded-[2rem] p-6 md:p-12 shadow-2xl border-t-4 border-rajasthan-gold relative overflow-hidden"
         >
           {/* Hero Content */}
-          <div className="text-center mb-12">
-            <span className={`inline-block px-6 py-2 mb-6 text-xs font-royal font-bold uppercase tracking-[0.2em] rounded-md text-white shadow-lg backdrop-blur-md border border-white/20 ${event.type === 'upcoming' ? 'bg-rajasthan-saffron/90' : 'bg-rajasthan-navy/80'}`}>
+          <div className="text-center mb-10 md:mb-12">
+            <span className={`inline-block px-4 py-1.5 md:px-6 md:py-2 mb-4 md:mb-6 text-[10px] md:text-xs font-royal font-bold uppercase tracking-[0.2em] rounded-md text-white shadow-lg backdrop-blur-md border border-white/20 ${event.type === 'upcoming' ? 'bg-rajasthan-saffron/90' : 'bg-rajasthan-navy/80'}`}>
               {event.type}
             </span>
-            <h1 className="text-5xl md:text-7xl font-ethnic font-bold text-rajasthan-gold drop-shadow-md mb-6">{event.title}</h1>
+            <h1 className="text-3xl md:text-7xl font-ethnic font-bold text-rajasthan-gold drop-shadow-md mb-6">{event.title}</h1>
             
-            <div className="flex flex-wrap justify-center gap-6 font-royal tracking-wide text-white">
-              <div className="flex items-center gap-3 bg-rajasthan-navy/60 px-6 py-3 rounded-xl border border-rajasthan-gold/30">
-                <Calendar size={20} className="text-rajasthan-saffron" />
-                <span className="font-semibold text-lg text-amber-50">{new Date(event.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 md:gap-6 font-royal tracking-wide text-white">
+              <div className="flex items-center gap-3 bg-rajasthan-navy/60 px-4 py-2 md:px-6 md:py-3 rounded-xl border border-rajasthan-gold/30">
+                <Calendar size={18} md:size={20} className="text-rajasthan-saffron" />
+                <span className="font-semibold text-base md:text-lg text-amber-50">{new Date(event.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
               </div>
-              <div className="flex items-center gap-3 bg-rajasthan-navy/60 px-6 py-3 rounded-xl border border-rajasthan-gold/30">
-                <MapPin size={20} className="text-rajasthan-red" />
-                <span className="font-semibold text-lg text-amber-50">{event.location}</span>
+              <div className="flex items-center gap-3 bg-rajasthan-navy/60 px-4 py-2 md:px-6 md:py-3 rounded-xl border border-rajasthan-gold/30">
+                <MapPin size={18} md:size={20} className="text-rajasthan-red" />
+                <span className="font-semibold text-base md:text-lg text-amber-50">{event.location}</span>
               </div>
             </div>
           </div>
 
           {/* Hero Image */}
-          <div className="w-full h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl mb-12 border-2 border-rajasthan-gold/30">
-            <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover" />
+          <div className="w-full h-auto rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl mb-12 border-2 border-rajasthan-gold/30">
+            <img src={event.imageUrl} alt={event.title} className="w-full h-auto" />
           </div>
 
           {/* Description & Purpose Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
             <div className="lg:col-span-2 space-y-6">
               <div>
-                <h2 className="text-3xl font-ethnic text-rajasthan-gold mb-6 flex items-center gap-3">
-                  <span className="w-8 h-[2px] bg-rajasthan-gold inline-block"></span> 
+                <h2 className="text-2xl md:text-3xl font-ethnic text-rajasthan-gold mb-6 flex items-center gap-3">
+                  <span className="w-6 md:w-8 h-[2px] bg-rajasthan-gold inline-block"></span> 
                   The Legend
                 </h2>
                 <div className="text-amber-50/90 font-royal text-lg leading-relaxed whitespace-pre-wrap">
@@ -110,7 +110,6 @@ const EventDetails = () => {
             <div className="space-y-8">
               {event.purpose ? (
                 <div className="bg-rajasthan-navy/40 p-8 rounded-3xl border border-rajasthan-gold/20 relative">
-                  <div className="absolute top-0 right-0 p-4 opacity-10"><ImageIcon size={64} /></div>
                   <h3 className="text-xl font-ethnic text-rajasthan-saffron mb-4">Royal Purpose</h3>
                   <p className="text-amber-200/80 font-royal leading-relaxed">{event.purpose}</p>
                 </div>
@@ -137,14 +136,14 @@ const EventDetails = () => {
                 Glimpses of Glory
                 <span className="w-12 h-[2px] bg-rajasthan-gold inline-block"></span>
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+              <div className="flex md:grid md:grid-cols-3 gap-6 mb-8 overflow-x-auto md:overflow-x-visible pb-6 md:pb-0 scrollbar-hide snap-x snap-mandatory px-2">
                 {currentImages.map((img, idx) => (
                   <motion.div 
                     key={indexOfFirstImage + idx}
                     whileHover={{ scale: 1.05 }}
-                    className="h-48 md:h-64 rounded-2xl overflow-hidden shadow-lg border-2 border-rajasthan-gold/20 border-opacity-50"
+                    className="flex-shrink-0 w-[85vw] sm:w-[45vw] md:w-auto h-auto rounded-2xl overflow-hidden shadow-lg border-2 border-rajasthan-gold/20 border-opacity-50 snap-center"
                   >
-                    <img src={img} alt={`Event glimpse ${indexOfFirstImage + idx + 1}`} className="w-full h-full object-cover" />
+                    <img src={img} alt={`Event glimpse ${indexOfFirstImage + idx + 1}`} className="w-full h-auto" />
                   </motion.div>
                 ))}
               </div>
