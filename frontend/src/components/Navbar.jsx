@@ -32,11 +32,11 @@ const Navbar = () => {
 
   return (
     <motion.nav 
-      initial={{ y: -100 }}
+      initial={location.pathname === '/' ? { y: -100 } : { y: 0 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled ? 'bg-rajasthan-navy/95 backdrop-blur-md shadow-2xl py-2 border-b-2 border-rajasthan-gold' : 'bg-transparent py-4'
+        scrolled || location.pathname !== '/' ? 'bg-rajasthan-navy/95 backdrop-blur-md shadow-2xl py-2 border-b-2 border-rajasthan-gold px-2' : 'bg-transparent py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

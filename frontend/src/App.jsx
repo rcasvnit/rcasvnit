@@ -12,10 +12,12 @@ import AdminDashboard from './pages/AdminDashboard';
 import EventDetails from './pages/EventDetails';
 import Alumni from './pages/Alumni';
 import IndustrialPartners from './pages/IndustrialPartners';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <div className="min-h-screen flex flex-col rajasthani-bg">
+      <ScrollToTop />
       <Navbar />
       <main className="flex-grow pt-20">
         <Routes>
