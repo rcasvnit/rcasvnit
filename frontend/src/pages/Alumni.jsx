@@ -40,18 +40,18 @@ const Alumni = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
-          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron mb-6 tracking-wide drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] pb-2 inline-block">
+          <h1 className="text-4xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron mb-6 tracking-wide drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] pb-2 inline-block">
             Our Royal <span className="text-rajasthan-saffron">Alumni</span>
           </h1>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-10"></div>
+          <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-10"></div>
           
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 max-w-3xl mx-auto px-6">
-            <label className="text-amber-50 font-royal tracking-widest uppercase text-lg">Select Era:</label>
-            <div className="relative">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 max-w-3xl mx-auto px-6">
+            <label className="text-amber-50/80 font-royal tracking-widest uppercase text-base md:text-lg">Select Era:</label>
+            <div className="relative w-full sm:w-auto">
                <select 
-                 className="appearance-none bg-rajasthan-navy/80 border-2 border-rajasthan-gold/50 text-rajasthan-gold font-royal font-bold tracking-widest text-lg px-8 py-3 rounded-full hover:border-rajasthan-gold transition-colors focus:outline-none focus:border-rajasthan-gold shadow-[0_0_15px_rgba(212,175,55,0.2)] cursor-pointer min-w-[200px]"
+                 className="appearance-none w-full bg-rajasthan-navy/80 border-2 border-rajasthan-gold/50 text-rajasthan-gold font-royal font-bold tracking-widest text-base md:text-lg px-6 md:px-8 py-2 md:py-3 rounded-xl md:rounded-full hover:border-rajasthan-gold transition-colors focus:outline-none focus:border-rajasthan-gold shadow-[0_0_15px_rgba(212,175,55,0.2)] cursor-pointer min-w-0 sm:min-w-[200px]"
                  value={filterYear} 
                  onChange={(e) => setFilterYear(e.target.value)}
                >
@@ -60,14 +60,14 @@ const Alumni = () => {
                    <option key={year} value={year}>{year}</option>
                  ))}
                </select>
-               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 text-rajasthan-gold">
+               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 md:px-6 text-rajasthan-gold">
                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                </div>
             </div>
           </div>
         </motion.div>
 
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
           <AnimatePresence>
             {currentAlumni.map((member, i) => (
               <motion.div 
@@ -80,10 +80,10 @@ const Alumni = () => {
                 className="group relative"
               >
                 {/* Decorative Frame Behind */}
-                <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-2 translate-y-2 opacity-30 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-500"></div>
+                <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-1 translate-y-1 md:translate-x-2 md:translate-y-2 opacity-30 group-hover:translate-x-2 group-hover:translate-y-2 md:group-hover:translate-x-3 md:group-hover:translate-y-3 transition-transform duration-500"></div>
                 
                 <div className="dark-royal-glass rounded-2xl overflow-hidden relative shadow-2xl group-hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.4)] transition-shadow duration-500 z-10 outline outline-1 outline-offset-[-4px] outline-rajasthan-gold/30 flex flex-col h-full bg-rajasthan-navy">
-                  <div className="h-72 overflow-hidden relative bg-black/50">
+                  <div className="h-64 md:h-72 overflow-hidden relative bg-black/50">
                     <img 
                       src={member.imageUrl} 
                       alt={member.name} 
@@ -92,9 +92,9 @@ const Alumni = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-rajasthan-navy via-transparent to-transparent opacity-80"></div>
                   </div>
                   
-                  <div className="p-6 text-center transform flex-grow flex flex-col justify-end bg-rajasthan-navy relative z-20 -mt-8 pt-8 border-t-2 border-rajasthan-gold/20">
-                    <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-rajasthan-navy text-rajasthan-gold border border-rajasthan-gold/40 px-4 py-1 rounded-full text-xs font-royal font-bold tracking-widest uppercase shadow-md">{member.year}</span>
-                    <h3 className="text-2xl font-bold font-ethnic text-rajasthan-gold mb-4 truncate">{member.name}</h3>
+                  <div className="p-5 md:p-6 text-center transform flex-grow flex flex-col justify-end bg-rajasthan-navy relative z-20 -mt-8 pt-8 border-t-2 border-rajasthan-gold/20">
+                    <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-rajasthan-navy text-rajasthan-gold border border-rajasthan-gold/40 px-4 py-1 rounded-full text-[10px] md:text-xs font-royal font-bold tracking-widest uppercase shadow-md">{member.year}</span>
+                    <h3 className="text-xl md:text-2xl font-bold font-ethnic text-rajasthan-gold mb-3 md:mb-4 truncate">{member.name}</h3>
                     
                     <div className="flex justify-center space-x-6 mt-auto pb-2 border-t border-rajasthan-gold/10 pt-4">
                       {member.socialLinks?.linkedin && (
@@ -123,21 +123,21 @@ const Alumni = () => {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex justify-center flex-wrap items-center gap-4 mt-16 pb-8">
+          <div className="flex justify-center flex-wrap items-center gap-2 md:gap-4 mt-12 md:mt-16 pb-8">
             <button 
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-sm"
+              className="px-4 md:px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-xs md:sm"
             >
               &larr; Prev
             </button>
-            <span className="text-amber-50 font-royal tracking-widest text-sm bg-rajasthan-navy/50 px-4 py-2 rounded-full border border-rajasthan-gold/30 shadow-inner">
+            <span className="text-amber-50 font-royal tracking-widest text-[10px] md:text-sm bg-rajasthan-navy/50 px-3 md:px-4 py-2 rounded-full border border-rajasthan-gold/30 shadow-inner">
               Page {currentPage} of {totalPages}
             </span>
             <button 
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-sm"
+              className="px-4 md:px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-xs md:sm"
             >
               Next &rarr;
             </button>
