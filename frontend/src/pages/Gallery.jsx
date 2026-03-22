@@ -83,8 +83,6 @@ const Gallery = () => {
     <div className="py-24 min-h-screen bg-immersive-dust outline-none relative overflow-hidden">
       
       {/* Background Ornaments */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-rajasthan-gold/5 rounded-bl-full pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-rajasthan-saffron/5 rounded-tr-full pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         

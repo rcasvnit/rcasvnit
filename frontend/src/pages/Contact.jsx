@@ -77,7 +77,7 @@ const Contact = () => {
                 <label className="block text-xs font-royal font-bold text-rajasthan-saffron mb-2 uppercase tracking-[0.2em]">Your Decree</label>
                 <textarea name="message" required value={formData.message} onChange={handleChange} rows="5" className="w-full px-5 py-4 rounded-xl border border-rajasthan-gold/30 focus:border-rajasthan-gold focus:ring-1 focus:ring-rajasthan-gold focus:outline-none transition-all bg-rajasthan-navy/50 backdrop-blur-sm font-sans text-white placeholder-gray-400 resize-none"></textarea>
               </div>
-              <button type="submit" className="w-full btn-royal-solid mt-4">Dispatch Letter</button>
+              <button type="submit" className="w-full btn-royal-solid !px-6 !py-2.5 !text-xs md:!text-lg !tracking-[0.2em] md:!tracking-widest mt-4">Dispatch Letter</button>
             </form>
           </motion.div>
           
@@ -113,7 +113,7 @@ const Contact = () => {
               </div>
               <div>
                 <h4 className="font-bold text-[10px] md:text-xs tracking-[0.2em] font-royal uppercase text-amber-100/70 mb-1">Ring Us</h4>
-                <a href="tel:+919876543210" className="text-white text-lg md:text-2xl font-ethnic font-bold hover:text-rajasthan-saffron transition-colors">+91 98765 43210</a>
+                <a href="tel:+919664333251" className="text-white text-lg md:text-2xl font-ethnic font-bold hover:text-rajasthan-saffron transition-colors">+91 96643 33251</a>
               </div>
             </div>
             
