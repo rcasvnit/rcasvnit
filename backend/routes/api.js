@@ -56,7 +56,7 @@ router.post('/login', (req, res) => {
     const token = jwt.sign({ admin: true }, process.env.JWT_SECRET || 'fallback_secret', { expiresIn: '24h' });
     res.json({ token });
   } else {
-    res.status(401).json({ error: 'Invalid password' });
+    res.json({ success: false, error: 'Invalid password' });
   }
 });
 

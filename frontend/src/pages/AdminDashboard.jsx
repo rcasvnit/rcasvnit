@@ -223,27 +223,43 @@ const AdminDashboard = () => {
 
   if (!token) {
     return (
-      <div className="min-h-screen pt-24 pb-12 flex items-center justify-center bg-rajasthan-navy text-white bg-immersive-dust p-4 flex-col">
-        <h1 className="text-4xl text-rajasthan-gold font-bold font-ethnic mb-2 drop-shadow-md">Restricted Area</h1>
-        <p className="mb-8 text-amber-200/80 font-medium font-royal tracking-widest uppercase">Please enter the royal decree (password) to access.</p>
-        <form onSubmit={handleLogin} className="dark-royal-glass p-8 rounded-3xl shadow-[0_0_30px_rgba(212,175,55,0.2)] w-full max-w-sm border-t-4 border-b-4 border-rajasthan-gold transition-all relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-rajasthan-gold/10 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
-          <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-rajasthan-navy/80 border border-rajasthan-gold/50 shadow-[0_0_15px_rgba(212,175,55,0.4)] text-rajasthan-gold rounded-full flex items-center justify-center">
-              <Lock size={32} />
+      <div className="min-h-screen pt-20 flex items-center justify-center bg-rajasthan-navy text-white bg-immersive-dust p-4 md:p-6 flex-col">
+        <h1 className="text-3xl md:text-6xl text-rajasthan-gold font-bold font-ethnic mb-3 md:mb-4 drop-shadow-md text-center uppercase tracking-tighter">Restricted Area</h1>
+        <p className="mb-10 md:mb-12 text-[10px] md:text-sm text-amber-200/80 font-medium font-royal tracking-[0.2em] md:tracking-[0.4em] uppercase text-center max-w-xs md:max-w-none">
+          Please enter the royal decree (password) to access.
+        </p>
+        
+        <form onSubmit={handleLogin} className="dark-royal-glass p-6 md:p-10 rounded-[2rem] shadow-[0_0_50px_rgba(212,175,55,0.15)] w-full max-w-sm border border-rajasthan-gold/30 transition-all relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-rajasthan-gold/10 rounded-bl-full -z-10 group-hover:scale-110 transition-transform blur-xl"></div>
+          
+          <div className="flex justify-center mb-8">
+            <div className="w-14 h-14 md:w-20 md:h-20 bg-rajasthan-navy/80 border border-rajasthan-gold/50 shadow-[0_0_20px_rgba(212,175,55,0.4)] text-rajasthan-gold rounded-full flex items-center justify-center transition-transform hover:rotate-12">
+              <Lock className="w-6 h-6 md:w-10 md:h-10" />
             </div>
           </div>
-          {errorMsg && <p className="text-red-400 text-center mb-4 font-bold bg-red-900/40 p-2 rounded border border-red-500/50">{errorMsg}</p>}
-          <input 
-            type="password" 
-            placeholder="Super Secret Password" 
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-rajasthan-navy/50 border border-rajasthan-gold/30 text-amber-50 focus:border-rajasthan-gold focus:outline-none mb-6 text-center text-lg tracking-widest placeholder-amber-200/50 shadow-inner"
-          />
-          <button type="submit" className="w-full btn-royal">
-            Unlock Vault
-          </button>
+
+          {errorMsg && (
+            <div className="animate-shake mb-6">
+              <p className="text-red-400 text-center text-xs md:text-sm font-bold bg-red-900/20 py-3 rounded-xl border border-red-500/30 backdrop-blur-sm">
+                {errorMsg}
+              </p>
+            </div>
+          )}
+
+          <div className="space-y-6">
+            <input 
+              type="password" 
+              placeholder="••••••••" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 md:py-4 rounded-xl bg-rajasthan-navy/50 border border-rajasthan-gold/20 text-amber-50 focus:border-rajasthan-gold focus:outline-none text-center text-base md:text-xl tracking-[0.5em] placeholder-amber-200/30 shadow-inner transition-all hover:border-rajasthan-gold/40"
+            />
+            
+            <button type="submit" className="w-full btn-royal py-4 md:py-5 text-xs md:text-sm flex items-center justify-center gap-3 group/btn">
+              Unlock the Vault
+              <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
+            </button>
+          </div>
         </form>
       </div>
     );
@@ -252,63 +268,35 @@ const AdminDashboard = () => {
   return (
     <div className="py-16 pt-24 min-h-screen bg-rajasthan-navy text-white bg-immersive-dust">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <div className="flex items-center gap-4">
-            <h1 className="text-4xl font-ethnic font-bold text-rajasthan-gold drop-shadow-[0_2px_5px_rgba(0,0,0,0.5)]">Admin Palace</h1>
-            <button onClick={handleLogout} className="flex items-center gap-2 text-rajasthan-red border border-rajasthan-red/40 bg-rajasthan-navy/50 px-4 py-2 rounded-full hover:bg-rajasthan-red/20 transition-all font-bold text-sm tracking-widest uppercase shadow-md">
-              <LogOut size={16} /> Logout
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6 md:gap-4">
+          <div className="flex items-center justify-between w-full md:w-auto gap-4">
+            <h1 className="text-3xl md:text-4xl font-ethnic font-bold text-rajasthan-gold drop-shadow-[0_2px_5px_rgba(0,0,0,0.5)]">Admin Palace</h1>
+            <button onClick={handleLogout} className="flex items-center gap-2 text-rajasthan-red border border-rajasthan-red/40 bg-rajasthan-navy/50 px-3 md:px-4 py-2 rounded-full hover:bg-rajasthan-red/20 transition-all font-bold text-[10px] md:text-sm tracking-widest uppercase shadow-md">
+              <LogOut size={14} md:size={16} /> Logout
             </button>
           </div>
-          <div className="flex bg-rajasthan-navy/80 border border-rajasthan-gold/40 rounded-full shadow-[0_0_15px_rgba(212,175,55,0.1)] p-1 backdrop-blur-md">
-            <button 
-              onClick={() => setActiveTab('events')} 
-              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'events' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
+          {/* Tab Navigation: Unified Dropdown for All Screens */}
+          <div className="w-full md:w-64">
+            <select 
+              value={activeTab} 
+              onChange={(e) => setActiveTab(e.target.value)}
+              className="w-full bg-rajasthan-navy/90 border-2 border-rajasthan-gold/50 text-rajasthan-gold p-3 rounded-xl font-royal font-bold tracking-widest uppercase text-xs md:text-sm focus:border-rajasthan-gold focus:outline-none shadow-lg cursor-pointer transition-colors hover:border-rajasthan-gold"
             >
-              Manage Events
-            </button>
-            <button 
-              onClick={() => setActiveTab('members')} 
-              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'members' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
-            >
-              Manage Team
-            </button>
-            <button 
-              onClick={() => setActiveTab('alumni')} 
-              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'alumni' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
-            >
-              Manage Alumni
-            </button>
-            <button 
-              onClick={() => setActiveTab('sponsors')} 
-              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'sponsors' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
-            >
-              Bhamashah
-            </button>
-            <button 
-              onClick={() => setActiveTab('partners')} 
-              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'partners' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
-            >
-              Partners
-            </button>
-            <button 
-              onClick={() => setActiveTab('gallery')} 
-              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'gallery' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
-            >
-              Gallery
-            </button>
-            <button 
-              onClick={() => setActiveTab('albums')} 
-              className={`px-6 py-2 font-bold rounded-full transition-all duration-300 font-royal tracking-widest uppercase text-sm ${activeTab === 'albums' ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy shadow-md' : 'text-amber-50 hover:text-rajasthan-gold'}`}
-            >
-              Albums
-            </button>
+              <option value="events">Manage Events</option>
+              <option value="members">Manage Team</option>
+              <option value="alumni">Manage Alumni</option>
+              <option value="sponsors">Bhamashah</option>
+              <option value="partners">Partners</option>
+              <option value="gallery">Gallery</option>
+              <option value="albums">Albums</option>
+            </select>
           </div>
         </div>
 
         {formData ? (
-          <div className="dark-royal-glass p-8 rounded-3xl shadow-2xl border-t-4 border-l-4 border-rajasthan-gold/50 relative overflow-hidden group">
+          <div className="dark-royal-glass p-5 md:p-8 rounded-3xl shadow-2xl border-t-4 border-l-4 border-rajasthan-gold/50 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-rajasthan-gold/5 rounded-bl-full -z-10 blur-2xl group-hover:bg-rajasthan-gold/10 transition-colors duration-700"></div>
-            <h2 className="text-2xl font-bold mb-6 font-ethnic text-rajasthan-gold tracking-widest drop-shadow-md">
+            <h2 className="text-xl md:text-2xl font-bold mb-6 font-ethnic text-rajasthan-gold tracking-widest drop-shadow-md">
               {formData._id ? 'Edit' : 'Add New'} {activeTab === 'events' ? 'Event' : activeTab === 'members' ? 'Member' : activeTab === 'alumni' ? 'Alumni' : activeTab === 'sponsors' ? 'Bhamashah' : activeTab === 'partners' ? 'Partner' : activeTab === 'gallery' ? 'Image' : 'Album'}
             </h2>
             <form onSubmit={handleSave} className="space-y-6">
@@ -318,7 +306,7 @@ const AdminDashboard = () => {
                   <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Short Summary</label><textarea required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none min-h-[50px] placeholder-amber-200/30" placeholder="Brief summary" value={formData.description || ''} onChange={e => setFormData({...formData, description: e.target.value})} /></div>
                   <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">The Legend (Full Description)</label><textarea className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none min-h-[100px] placeholder-amber-200/30" placeholder="Complete details for the event page" value={formData.fullDescription || ''} onChange={e => setFormData({...formData, fullDescription: e.target.value})} /></div>
                   <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Royal Purpose</label><textarea className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none min-h-[60px] placeholder-amber-200/30" placeholder="Why is this event celebrated?" value={formData.purpose || ''} onChange={e => setFormData({...formData, purpose: e.target.value})} /></div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Date</label><input type="date" required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none [color-scheme:dark]" value={formData.date ? formData.date.split('T')[0] : ''} onChange={e => setFormData({...formData, date: e.target.value})} /></div>
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Location</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Venue" value={formData.location || ''} onChange={e => setFormData({...formData, location: e.target.value})} /></div>
                   </div>
@@ -349,7 +337,7 @@ const AdminDashboard = () => {
               )}
               {activeTab === 'members' && (
                 <>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Name</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Full Name" value={formData.name || ''} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Role</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Position" value={formData.role || ''} onChange={e => setFormData({...formData, role: e.target.value})} /></div>
                   </div>
@@ -362,7 +350,7 @@ const AdminDashboard = () => {
                       <option value="management">Management</option>
                     </select>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">LinkedIn URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.socialLinks?.linkedin || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, linkedin: e.target.value}})} /></div>
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Instagram URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.socialLinks?.instagram || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, instagram: e.target.value}})} /></div>
                   </div>
@@ -375,7 +363,7 @@ const AdminDashboard = () => {
                     <label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Year (Batch)</label>
                     <input required type="number" min="1990" max="2100" className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="e.g. 2024" value={formData.year || ''} onChange={e => setFormData({...formData, year: e.target.value})} />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">LinkedIn URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.socialLinks?.linkedin || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, linkedin: e.target.value}})} /></div>
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Instagram URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.socialLinks?.instagram || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, instagram: e.target.value}})} /></div>
                   </div>
@@ -384,7 +372,7 @@ const AdminDashboard = () => {
               {activeTab === 'sponsors' && (
                 <>
                   <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Name</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Bhamashah Name" value={formData.name || ''} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">LinkedIn URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.socialLinks?.linkedin || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, linkedin: e.target.value}})} /></div>
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Instagram URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.socialLinks?.instagram || ''} onChange={e => setFormData({...formData, socialLinks: {...formData.socialLinks, instagram: e.target.value}})} /></div>
                   </div>
@@ -394,7 +382,7 @@ const AdminDashboard = () => {
                 <>
                   <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Company Name</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="Company / Organisation Name" value={formData.name || ''} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
                   <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Short Description</label><textarea required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none min-h-[80px] placeholder-amber-200/30" placeholder="1-2 lines about this partner" value={formData.description || ''} onChange={e => setFormData({...formData, description: e.target.value})} /></div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Category</label><input required className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="e.g. Technology, Finance" value={formData.category || ''} onChange={e => setFormData({...formData, category: e.target.value})} /></div>
                     <div><label className="block text-sm font-bold mb-1 font-royal text-amber-200/80 uppercase tracking-wider">Website URL</label><input className="w-full p-3 bg-rajasthan-navy/50 border border-rajasthan-gold/30 rounded-xl text-white focus:border-rajasthan-gold focus:outline-none placeholder-amber-200/30" placeholder="https://" value={formData.website || ''} onChange={e => setFormData({...formData, website: e.target.value})} /></div>
                   </div>
@@ -423,10 +411,10 @@ const AdminDashboard = () => {
               )}
               
               {activeTab !== 'albums' && (
-                <div className="p-4 bg-rajasthan-navy/40 border-2 border-dashed border-rajasthan-gold/40 rounded-xl flex items-center gap-6 hover:border-rajasthan-gold transition-colors">
+                <div className="p-4 bg-rajasthan-navy/40 border-2 border-dashed border-rajasthan-gold/40 rounded-xl flex flex-col sm:flex-row items-center gap-6 hover:border-rajasthan-gold transition-colors">
                   {formData.imageUrl ? <img src={formData.imageUrl} className="w-20 h-20 rounded-xl object-cover shadow-[0_0_10px_rgba(212,175,55,0.3)] border border-rajasthan-gold/50" /> : <ImageIcon className="w-20 h-20 text-rajasthan-gold/40" />}
-                  <div className="flex-grow relative">
-                    <label className="block text-sm font-bold mb-2 font-royal text-amber-200/80 uppercase tracking-wider">
+                  <div className="flex-grow w-full relative">
+                    <label className="block text-sm font-bold mb-2 font-royal text-amber-200/80 uppercase tracking-wider text-center sm:text-left">
                       {activeTab === 'gallery' ? 'Upload Images (Multiple Allowed)' : 'Upload Portrait'}
                     </label>
                     <input 
@@ -434,9 +422,9 @@ const AdminDashboard = () => {
                       accept="image/*" 
                       multiple={activeTab === 'gallery'} 
                       onChange={activeTab === 'gallery' ? handleBulkImageUpload : handleImageUpload} 
-                      className="w-full text-sm text-amber-50 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-rajasthan-gold file:text-rajasthan-navy hover:file:bg-amber-400 cursor-pointer" 
+                      className="w-full text-xs md:text-sm text-amber-50 file:mr-2 md:file:mr-4 file:py-1 md:file:py-2 file:px-3 md:file:px-4 file:rounded-full file:border-0 file:text-[10px] md:file:text-sm file:font-bold file:bg-rajasthan-gold file:text-rajasthan-navy hover:file:bg-amber-400 cursor-pointer" 
                     />
-                    {isUploading && <p className="text-sm text-rajasthan-gold mt-2 font-bold animate-pulse absolute -bottom-6">Uploading securely to vault...</p>}
+                    {isUploading && <p className="text-xs md:text-sm text-rajasthan-gold mt-2 font-bold animate-pulse absolute sm:relative -bottom-6 sm:bottom-0">Uploading securely...</p>}
                   </div>
                 </div>
               )}
@@ -459,15 +447,15 @@ const AdminDashboard = () => {
               )}
 
               <div className="flex gap-4 pt-4">
-                <button type="button" onClick={() => setFormData(null)} className="px-8 py-3 bg-rajasthan-navy/60 border border-rajasthan-gold/40 hover:bg-rajasthan-navy hover:border-rajasthan-gold text-amber-50 rounded-full font-bold transition-all shadow-md tracking-widest uppercase">Cancel</button>
-                <button type="submit" disabled={isUploading || (activeTab === 'gallery' ? !formData.images?.length : (activeTab !== 'albums' && !formData.imageUrl))} className="btn-royal-solid disabled:opacity-50 disabled:cursor-not-allowed">Save to Archives</button>
+                <button type="button" onClick={() => setFormData(null)} className="px-5 md:px-8 py-2 md:py-3 bg-rajasthan-navy/60 border border-rajasthan-gold/40 hover:bg-rajasthan-navy hover:border-rajasthan-gold text-amber-50 rounded-full font-bold transition-all shadow-md tracking-widest uppercase text-[10px] md:text-sm">Cancel</button>
+                <button type="submit" disabled={isUploading || (activeTab === 'gallery' ? !formData.images?.length : (activeTab !== 'albums' && !formData.imageUrl))} className="btn-royal-solid !px-5 !md:px-8 !py-2 !md:py-3 !text-[10px] !md:text-sm disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap">Save to Archives</button>
               </div>
             </form>
           </div>
         ) : (
           <div className="dark-royal-glass rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)] overflow-hidden border-t-4 border-l-4 border-rajasthan-gold/40">
-            <div className="p-6 bg-rajasthan-navy/80 flex justify-between items-center border-b border-rajasthan-gold/30">
-              <h2 className="text-2xl font-bold font-ethnic uppercase tracking-widest text-rajasthan-gold drop-shadow-md">Royal {activeTab} Roster</h2>
+            <div className="p-4 md:p-6 bg-rajasthan-navy/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-rajasthan-gold/30">
+              <h2 className="text-lg md:text-2xl font-bold font-ethnic uppercase tracking-widest text-rajasthan-gold drop-shadow-md">Royal {activeTab} Roster</h2>
               <button 
                 onClick={() => setFormData(
                   activeTab === 'events' ? { type: 'upcoming', date: new Date().toISOString() } : 
@@ -478,9 +466,9 @@ const AdminDashboard = () => {
                   activeTab === 'albums' ? { eventName: '', googlePhotosLink: '' } :
                   {}
                 )}
-                className="btn-royal py-2 px-6 text-sm"
+                className="btn-royal py-2 px-6 text-[10px] md:text-sm w-full sm:w-auto"
               >
-                <Plus size={18} className="mr-2" /> Add New
+                <Plus size={16} className="mr-2 inline-block -mt-1" /> Add New
               </button>
             </div>
             <div className="overflow-x-auto">
