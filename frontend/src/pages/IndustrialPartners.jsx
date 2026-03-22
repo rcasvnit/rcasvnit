@@ -34,25 +34,25 @@ const IndustrialPartners = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
-          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] mb-6 pb-2 inline-block">
+          <h1 className="text-4xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] mb-6 pb-2 inline-block">
             Industrial <span className="text-rajasthan-saffron">Partners</span>
           </h1>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-8"></div>
-          <p className="max-w-2xl mx-auto text-xl font-royal text-amber-50/80">
+          <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-8"></div>
+          <p className="max-w-2xl mx-auto text-lg md:text-xl font-royal text-amber-50/80 px-4">
             Organisations that stand with us in preserving the legacy of Rajasthan and empowering our community.
           </p>
         </motion.div>
 
         {/* Category Filter */}
         {categories.length > 1 && (
-          <div className="flex flex-wrap justify-center gap-3 mb-14">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-10 md:mb-14 px-4">
             {categories.map(cat => (
               <button
                 key={cat}
                 onClick={() => handleFilter(cat)}
-                className={`px-6 py-2 rounded-full font-royal font-bold tracking-widest uppercase text-sm transition-all duration-300 border ${
+                className={`px-4 md:px-6 py-1.5 md:py-2 rounded-full font-royal font-bold tracking-widest uppercase text-[10px] md:text-sm transition-all duration-300 border ${
                   filter === cat
                     ? 'bg-gradient-to-r from-rajasthan-gold to-yellow-500 text-rajasthan-navy border-transparent shadow-lg scale-105'
                     : 'bg-rajasthan-navy/60 text-amber-50 border-rajasthan-gold/30 hover:border-rajasthan-gold hover:text-rajasthan-gold'
@@ -65,7 +65,7 @@ const IndustrialPartners = () => {
         )}
 
         {/* Cards Grid */}
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           <AnimatePresence>
             {currentPartners.map((partner, i) => (
               <motion.div
@@ -78,12 +78,12 @@ const IndustrialPartners = () => {
                 className="group relative"
               >
                 {/* Gold shadow offset */}
-                <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-2 translate-y-2 opacity-20 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-500"></div>
+                <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-1 translate-y-1 md:translate-x-2 md:translate-y-2 opacity-20 group-hover:translate-x-2 group-hover:translate-y-2 md:group-hover:translate-x-3 md:group-hover:translate-y-3 transition-transform duration-500"></div>
 
                 <div className="dark-royal-glass rounded-2xl overflow-hidden relative shadow-2xl group-hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.35)] transition-shadow duration-500 z-10 flex flex-col h-full bg-rajasthan-navy border border-rajasthan-gold/20">
 
                   {/* Image */}
-                  <div className="h-52 overflow-hidden relative bg-black/40">
+                  <div className="h-48 md:h-52 overflow-hidden relative bg-black/40">
                     <img
                       src={partner.imageUrl}
                       alt={partner.name}
@@ -100,13 +100,13 @@ const IndustrialPartners = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="p-6 flex flex-col flex-grow">
+                  <div className="p-5 md:p-6 flex flex-col flex-grow">
                     <div className="flex items-start gap-3 mb-3">
                       <Building2 size={20} className="text-rajasthan-saffron flex-shrink-0 mt-1" />
-                      <h3 className="text-xl font-bold font-ethnic text-rajasthan-gold leading-tight">{partner.name}</h3>
+                      <h3 className="text-lg md:text-xl font-bold font-ethnic text-rajasthan-gold leading-tight">{partner.name}</h3>
                     </div>
 
-                    <p className="text-amber-100/70 font-royal text-sm leading-relaxed flex-grow mb-6">
+                    <p className="text-amber-100/70 font-royal text-[13px] md:text-sm leading-relaxed flex-grow mb-6">
                       {partner.description}
                     </p>
 
@@ -135,21 +135,21 @@ const IndustrialPartners = () => {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-4 mt-16 pb-8">
+          <div className="flex justify-center flex-wrap items-center gap-2 md:gap-4 mt-12 md:mt-16 pb-8">
             <button
               onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              className="px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-sm"
+              className="px-4 md:px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-xs md:sm"
             >
               &larr; Prev
             </button>
-            <span className="text-amber-50 font-royal tracking-widest text-sm bg-rajasthan-navy/50 px-4 py-2 rounded-full border border-rajasthan-gold/30 shadow-inner">
+            <span className="text-amber-50 font-royal tracking-widest text-[10px] md:text-sm bg-rajasthan-navy/50 px-3 md:px-4 py-2 rounded-full border border-rajasthan-gold/30 shadow-inner">
               Page {currentPage} of {totalPages}
             </span>
             <button
               onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-sm"
+              className="px-4 md:px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-xs md:sm"
             >
               Next &rarr;
             </button>
