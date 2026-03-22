@@ -23,19 +23,19 @@ const Team = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
-          <h1 className="text-6xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] mb-6 pb-2">
+          <h1 className="text-4xl md:text-7xl font-ethnic font-bold text-transparent bg-clip-text bg-gradient-to-r from-rajasthan-gold via-amber-200 to-rajasthan-saffron drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] mb-6 pb-2">
             Our Royal <span className="text-rajasthan-saffron">Council</span>
           </h1>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-10"></div>
+          <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-10"></div>
           
-          <div className="flex flex-wrap justify-center gap-4 border-y border-rajasthan-gold/30 py-6 max-w-3xl mx-auto bg-rajasthan-navy/50 backdrop-blur-md rounded-full px-6 shadow-inner">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-4 border-y border-rajasthan-gold/30 py-4 md:py-6 max-w-3xl mx-auto bg-rajasthan-navy/50 backdrop-blur-md rounded-2xl md:rounded-full px-4 md:px-6 shadow-inner">
             {roles.map(r => (
               <button
                 key={r}
                 onClick={() => setFilter(r)}
-                className={`px-8 py-2 rounded-full font-royal font-bold tracking-widest uppercase text-sm transition-all duration-300 ${
+                className={`px-4 md:px-8 py-2 rounded-full font-royal font-bold tracking-widest uppercase text-[10px] md:text-sm transition-all duration-300 ${
                   filter === r 
                   ? 'bg-gradient-to-r from-rajasthan-maroon to-rajasthan-red text-rajasthan-gold shadow-lg scale-105' 
                   : 'bg-transparent text-amber-50 hover:bg-rajasthan-navy hover:text-rajasthan-gold hover:shadow-md'
@@ -47,7 +47,7 @@ const Team = () => {
           </div>
         </motion.div>
 
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
           <AnimatePresence>
             {filteredMembers.map((member, i) => (
               <motion.div 
@@ -60,10 +60,10 @@ const Team = () => {
                 className="group relative"
               >
                 {/* Decorative Frame Behind */}
-                <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-2 translate-y-2 opacity-30 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-500"></div>
+                <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-1 translate-y-1 md:translate-x-2 md:translate-y-2 opacity-30 group-hover:translate-x-2 group-hover:translate-y-2 md:group-hover:translate-x-3 md:group-hover:translate-y-3 transition-transform duration-500"></div>
                 
                 <div className="dark-royal-glass rounded-2xl overflow-hidden relative shadow-2xl group-hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.4)] transition-shadow duration-500 z-10 outline outline-1 outline-offset-[-4px] outline-rajasthan-gold/30 flex flex-col h-full bg-rajasthan-navy">
-                  <div className="h-72 overflow-hidden relative bg-black/50">
+                  <div className="h-64 md:h-72 overflow-hidden relative bg-black/50">
                     <img 
                       src={member.imageUrl} 
                       alt={member.name} 
@@ -72,9 +72,9 @@ const Team = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-rajasthan-navy via-transparent to-transparent opacity-80"></div>
                   </div>
                   
-                  <div className="p-6 text-center transform flex-grow flex flex-col justify-end bg-rajasthan-navy relative z-20 -mt-8 pt-8">
-                    <h3 className="text-2xl font-bold font-ethnic text-rajasthan-gold mb-1 truncate">{member.name}</h3>
-                    <p className="text-amber-100/80 font-royal italic uppercase text-xs tracking-widest mb-4 truncate">{member.role}</p>
+                  <div className="p-5 md:p-6 text-center transform flex-grow flex flex-col justify-end bg-rajasthan-navy relative z-20 -mt-8 pt-8">
+                    <h3 className="text-xl md:text-2xl font-bold font-ethnic text-rajasthan-gold mb-1 truncate">{member.name}</h3>
+                    <p className="text-[10px] md:text-xs text-amber-100/80 font-royal italic uppercase tracking-widest mb-4 truncate">{member.role}</p>
                     
                     <div className="flex justify-center space-x-6 mt-auto pb-2 border-t border-rajasthan-gold/10 pt-4">
                       {member.socialLinks?.linkedin && (
