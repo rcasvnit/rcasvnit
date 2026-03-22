@@ -54,11 +54,11 @@ const Home = () => {
               Welcome to the Heritage
             </motion.p>
             
-            <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl lg:text-8xl font-ethnic font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-rajasthan-gold to-yellow-500 mb-6 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] leading-tight">
-              Experience the<br/>Royal Essence
+            <motion.h1 variants={fadeIn} className="text-4xl md:text-7xl lg:text-8xl font-ethnic font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-rajasthan-gold to-yellow-500 mb-6 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] leading-[1.2] md:leading-tight">
+              Experience the<br className="hidden sm:block"/>Royal Essence
             </motion.h1>
             
-            <motion.p variants={fadeIn} className="text-lg md:text-2xl font-royal text-amber-50 max-w-3xl mx-auto mb-12 drop-shadow-md">
+            <motion.p variants={fadeIn} className="text-base md:text-2xl font-royal text-amber-50 max-w-2xl mx-auto mb-12 drop-shadow-md px-4">
               Celebrating the royal heritage, vibrant traditions, and unparalleled hospitality of Rajasthan at SVNIT Surat.
             </motion.p>
             
@@ -76,7 +76,7 @@ const Home = () => {
       </section>
 
       {/* Stats Section with Glassmorphism */}
-      <section className="relative z-30 -mt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+      <section className="relative z-30 -mt-12 md:-mt-20 lg:-mt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -105,10 +105,10 @@ const Home = () => {
       </section>
 
       {/* Decorative Divider */}
-      <div className="w-full flex items-center justify-center my-20 px-4">
-        <div className="h-[2px] w-48 md:w-96 lg:w-[400px] bg-gradient-to-r from-transparent to-rajasthan-gold/80"></div>
-        <div className="w-4 h-4 bg-rajasthan-navy rotate-45 mx-6 border-2 border-rajasthan-gold rounded-sm shrink-0 shadow-[0_0_10px_rgba(212,175,55,0.5)]"></div>
-        <div className="h-[2px] w-48 md:w-96 lg:w-[400px] bg-gradient-to-l from-transparent to-rajasthan-gold/80"></div>
+      <div className="w-full flex items-center justify-center my-12 md:my-20 px-4">
+        <div className="h-[0.5px] md:h-[2px] flex-grow max-w-[400px] bg-gradient-to-r from-transparent to-rajasthan-gold/80"></div>
+        <div className="w-3 h-3 md:w-4 md:h-4 bg-rajasthan-navy rotate-45 mx-4 md:mx-6 border border-rajasthan-gold rounded-sm shrink-0 shadow-[0_0_10px_rgba(212,175,55,0.5)]"></div>
+        <div className="h-[0.5px] md:h-[2px] flex-grow max-w-[400px] bg-gradient-to-l from-transparent to-rajasthan-gold/80"></div>
       </div>
 
       {/* About Section Snippet */}
@@ -144,7 +144,7 @@ const Home = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1 }}
-            className="relative h-[600px] w-full rounded-tl-[100px] rounded-br-[100px] overflow-hidden border-8 border-rajasthan-navy shadow-[0_0_50px_rgba(212,175,55,0.2)] group"
+            className="relative h-[300px] md:h-[500px] lg:h-[600px] w-full rounded-tl-[60px] md:rounded-tl-[100px] rounded-br-[60px] md:rounded-br-[100px] overflow-hidden border-4 md:border-8 border-rajasthan-navy shadow-[0_0_30px_rgba(212,175,55,0.2)] group"
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10 group-hover:bg-black/10 transition-all duration-700"></div>
             <img 

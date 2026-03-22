@@ -54,14 +54,14 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center space-x-1">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
               return (
                 <Link 
                   key={link.name} 
                   to={link.path} 
-                  className={`relative px-4 py-2 font-royal font-bold tracking-widest uppercase text-sm transition-all duration-300 group ${
+                  className={`relative px-2 xl:px-4 py-2 font-royal font-bold tracking-widest uppercase text-xs xl:text-sm transition-all duration-300 group ${
                     isActive ? 'text-rajasthan-gold' : (scrolled ? 'text-amber-50 hover:text-rajasthan-gold' : 'text-white hover:text-rajasthan-gold drop-shadow-md')
                   }`}
                 >
@@ -73,7 +73,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <button 
               onClick={() => setIsOpen(!isOpen)} 
               className={`p-2 transition-colors duration-300 ${scrolled ? 'text-rajasthan-gold' : 'text-white drop-shadow-md'}`}
@@ -91,7 +91,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-rajasthan-navy/95 backdrop-blur-xl border-b border-rajasthan-gold overflow-hidden"
+            className="lg:hidden bg-rajasthan-navy/95 backdrop-blur-xl border-b border-rajasthan-gold overflow-hidden"
           >
             <div className="px-4 pt-2 pb-6 space-y-2 flex flex-col items-center">
               {navLinks.map((link) => (
