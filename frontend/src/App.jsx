@@ -12,6 +12,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import EventDetails from './pages/EventDetails';
 import Alumni from './pages/Alumni';
 import IndustrialPartners from './pages/IndustrialPartners';
+import Developer from './pages/Developer';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/developer" element={<Developer />} />
         </Routes>
       </main>
       <Footer />

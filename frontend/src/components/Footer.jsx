@@ -1,4 +1,4 @@
-import { Heart, MapPin, Mail, Phone } from 'lucide-react';
+import { Heart, Instagram, Mail, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -44,9 +44,9 @@ const Footer = () => {
           <div className="text-center md:text-left">
             <h4 className="text-lg font-bold font-ethnic text-rajasthan-pink mb-4 uppercase tracking-widest border-b border-white/10 pb-2">Reach Out</h4>
             <ul className="space-y-4 text-sm text-amber-50">
-              <li className="flex items-start justify-center md:justify-start gap-3">
-                <MapPin size={18} className="text-rajasthan-gold flex-shrink-0 mt-0.5" />
-                <span>SVNIT Surat</span>
+              <li className="flex items-center justify-center md:justify-start gap-3">
+                <Instagram size={18} className="text-rajasthan-gold flex-shrink-0" />
+                <a href="https://www.instagram.com/rca.svnit" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors italic">@rca.svnit</a>
               </li>
               <li className="flex items-center justify-center md:justify-start gap-3">
                 <Mail size={18} className="text-rajasthan-gold flex-shrink-0" />
@@ -63,8 +63,9 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-amber-200/70">
           <p>&copy; {new Date().getFullYear()} Rajasthan Cultural Association, SVNIT. All rights reserved.</p>
-          <div className="mt-4 md:mt-0 flex gap-4">
+          <div className="mt-4 md:mt-0 flex gap-6">
             <Link to="/admin" className="hover:text-amber-400 transition-colors uppercase tracking-wider font-bold">Admin Portal</Link>
+            <Link to="/developer" className="hover:text-amber-400 transition-colors uppercase tracking-wider font-bold">Developer</Link>
           </div>
         </div>
       </div>

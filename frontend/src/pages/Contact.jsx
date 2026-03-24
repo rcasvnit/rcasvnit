@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { API_URL } from '../config';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, Instagram, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Contact = () => {
@@ -88,15 +88,15 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="space-y-8"
           >
-            <div className="dark-royal-glass p-5 md:p-8 rounded-3xl flex items-center gap-4 md:gap-6 border-l-4 border-rajasthan-gold group hover:-translate-y-2 transition-transform duration-300">
+            <a href="https://www.instagram.com/rca.svnit" target="_blank" rel="noopener noreferrer" className="dark-royal-glass p-5 md:p-8 rounded-3xl flex items-center gap-4 md:gap-6 border-l-4 border-rajasthan-gold group hover:-translate-y-2 transition-transform duration-300 block">
               <div className="w-14 h-14 md:w-20 md:h-20 bg-rajasthan-gold/10 text-rajasthan-gold rounded-full flex items-center justify-center border border-rajasthan-gold/20 group-hover:bg-rajasthan-gold group-hover:text-rajasthan-navy transition-colors duration-500 flex-shrink-0">
-                <MapPin className="w-6 h-6 md:w-8 md:h-8" />
+                <Instagram className="w-6 h-6 md:w-8 md:h-8" />
               </div>
               <div>
-                <h4 className="font-bold text-[10px] md:text-xs tracking-[0.2em] font-royal uppercase text-amber-100/70 mb-1">Address</h4>
-                <p className="text-white text-lg md:text-2xl font-ethnic font-bold">SVNIT Surat</p>
+                <h4 className="font-bold text-[10px] md:text-xs tracking-[0.2em] font-royal uppercase text-amber-100/70 mb-1">Instagram ID</h4>
+                <p className="text-white text-lg md:text-2xl font-ethnic font-bold italic">@rca.svnit</p>
               </div>
-            </div>
+            </a>
             
             <div className="dark-royal-glass p-5 md:p-8 rounded-3xl flex items-center gap-4 md:gap-6 border-l-4 border-rajasthan-saffron group hover:-translate-y-2 transition-transform duration-300">
               <div className="w-14 h-14 md:w-20 md:h-20 bg-rajasthan-saffron/10 text-rajasthan-saffron rounded-full flex items-center justify-center border border-rajasthan-saffron/20 group-hover:bg-rajasthan-saffron group-hover:text-white transition-colors duration-500 flex-shrink-0">
