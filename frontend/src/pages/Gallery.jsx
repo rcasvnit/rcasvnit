@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { API_URL } from '../config';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Maximize2, X, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
@@ -13,8 +14,8 @@ const Gallery = () => {
     const fetchData = async () => {
       try {
         const [imgRes, albumRes] = await Promise.all([
-          fetch('http://localhost:5000/api/gallery'),
-          fetch('http://localhost:5000/api/albums')
+          fetch(`${API_URL}/gallery`),
+          fetch(`${API_URL}/albums`)
         ]);
         const imgData = await imgRes.json();
         const albumData = await albumRes.json();

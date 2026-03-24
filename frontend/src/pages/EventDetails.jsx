@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, ArrowLeft, Image as ImageIcon } from 'lucide-react';
@@ -11,7 +12,7 @@ const EventDetails = () => {
   const imagesPerPage = 6;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/events/${id}`)
+    fetch(`${API_URL}/events/${id}`)
       .then(res => res.json())
       .then(data => {
         setEvent(data);

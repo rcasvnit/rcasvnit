@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 import { Linkedin, Instagram } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -9,7 +10,7 @@ const Alumni = () => {
   const itemsPerPage = 20;
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/alumni')
+    fetch(`${API_URL}/alumni`)
       .then(res => res.json())
       .then(data => setAlumni(data))
       .catch(err => console.error(err));

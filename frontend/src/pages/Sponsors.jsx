@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 import { Linkedin, Instagram } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -8,7 +9,7 @@ const Sponsors = () => {
   const itemsPerPage = 20;
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/sponsors')
+    fetch(`${API_URL}/sponsors`)
       .then(res => res.json())
       .then(data => setSponsors(data))
       .catch(err => console.error(err));

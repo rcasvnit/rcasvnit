@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 import { Linkedin, Instagram } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -7,7 +8,7 @@ const Team = () => {
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/members')
+    fetch(`${API_URL}/members`)
       .then(res => res.json())
       .then(data => setMembers(data))
       .catch(err => console.error(err));

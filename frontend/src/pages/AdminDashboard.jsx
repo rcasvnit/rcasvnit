@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 import { Trash2, Edit, Plus, Image as ImageIcon, Lock, LogOut } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -20,7 +21,7 @@ const AdminDashboard = () => {
 
   const fetchAlbums = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/albums');
+      const res = await fetch(`${API_URL}/albums`);
       const data = await res.json();
       setAlbums(data);
     } catch (err) { console.error(err); }
@@ -29,7 +30,7 @@ const AdminDashboard = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/login', {
+      const res = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password })
@@ -55,7 +56,7 @@ const AdminDashboard = () => {
 
   const fetchItems = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/${activeTab}`);
+      const res = await fetch(`${API_URL}/${activeTab}`);
       const data = await res.json();
       setItems(data);
     } catch (err) { console.error(err); }
@@ -75,7 +76,7 @@ const AdminDashboard = () => {
     const formDataObj = new FormData();
     formDataObj.append('image', file);
     try {
-      const res = await fetch('http://localhost:5000/api/upload', {
+      const res = await fetch(`${API_URL}/upload`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -104,7 +105,7 @@ const AdminDashboard = () => {
     const formDataObj = new FormData();
     formDataObj.append('image', file);
     try {
-      const res = await fetch('http://localhost:5000/api/upload', {
+      const res = await fetch(`${API_URL}/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formDataObj
@@ -143,7 +144,7 @@ const AdminDashboard = () => {
       const formDataObj = new FormData();
       formDataObj.append('image', file);
       try {
-        const res = await fetch('http://localhost:5000/api/upload', {
+        const res = await fetch(`${API_URL}/upload`, {
           method: 'POST',
           headers: { 'Authorization': `Bearer ${token}` },
           body: formDataObj
@@ -165,7 +166,7 @@ const AdminDashboard = () => {
     // Gallery Save (Handles consolidation by eventName)
     if (activeTab === 'gallery') {
       try {
-        const url = `http://localhost:5000/api/gallery${isNew ? '' : `/${formData._id}`}`;
+        const url = `${API_URL}/gallery${isNew ? '' : `/${formData._id}`}`;
         const res = await fetch(url, {
           method: isNew ? 'POST' : 'PUT',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -188,7 +189,7 @@ const AdminDashboard = () => {
     }
 
     // Default Save (Other Tabs)
-    const url = `http://localhost:5000/api/${activeTab}${isNew ? '' : `/${formData._id}`}`;
+    const url = `${API_URL}/${activeTab}${isNew ? '' : `/${formData._id}`}`;
     try {
       const res = await fetch(url, {
         method: isNew ? 'POST' : 'PUT',
@@ -212,7 +213,7 @@ const AdminDashboard = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/${activeTab}/${id}`, { 
+      const res = await fetch(`${API_URL}/${activeTab}/${id}`, { 
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

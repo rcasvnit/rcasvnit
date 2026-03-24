@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Building2 } from 'lucide-react';
 
@@ -9,7 +10,7 @@ const IndustrialPartners = () => {
   const itemsPerPage = 20;
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/partners')
+    fetch(`${API_URL}/partners`)
       .then(res => res.json())
       .then(data => setPartners(data))
       .catch(err => console.error(err));
