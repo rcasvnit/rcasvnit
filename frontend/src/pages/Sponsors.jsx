@@ -1,18 +1,26 @@
 import { useEffect, useState } from 'react';
 import { API_URL } from '../config';
+import Loader from '../components/Loader';
 import { Linkedin, Instagram } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Sponsors = () => {
   const [sponsors, setSponsors] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
   useEffect(() => {
     fetch(`${API_URL}/sponsors`)
       .then(res => res.json())
-      .then(data => setSponsors(data))
-      .catch(err => console.error(err));
+      .then(data => {
+        setSponsors(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
   }, []);
 
   const totalPages = Math.ceil(sponsors.length / itemsPerPage);
@@ -37,79 +45,85 @@ const Sponsors = () => {
           </p>
         </motion.div>
 
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
-          <AnimatePresence>
-            {currentSponsors.map((sponsor, i) => (
-              <motion.div 
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                key={sponsor._id} 
-                className="group relative"
-              >
-                <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-1 translate-y-1 md:translate-x-2 md:translate-y-2 opacity-30 group-hover:translate-x-2 group-hover:translate-y-2 md:group-hover:translate-x-3 md:group-hover:translate-y-3 transition-transform duration-500"></div>
-                
-                <div className="dark-royal-glass rounded-2xl overflow-hidden relative shadow-2xl group-hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.4)] transition-shadow duration-500 z-10 outline outline-1 outline-offset-[-4px] outline-rajasthan-gold/30 flex flex-col h-full bg-rajasthan-navy">
-                  <div className="h-64 md:h-72 overflow-hidden relative bg-black/50">
-                    <img 
-                      src={sponsor.imageUrl} 
-                      alt={sponsor.name} 
-                      className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-rajasthan-navy via-transparent to-transparent opacity-80"></div>
-                  </div>
-                  
-                  <div className="p-5 md:p-6 text-center flex-grow flex flex-col justify-end bg-rajasthan-navy relative z-20 -mt-8 pt-8 border-t-2 border-rajasthan-gold/20">
-                    <h3 className="text-xl md:text-2xl font-bold font-ethnic text-rajasthan-gold mb-4 md:mb-6 truncate">{sponsor.name}</h3>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+              <AnimatePresence>
+                {currentSponsors.map((sponsor, i) => (
+                  <motion.div 
+                    layout
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.5, delay: i * 0.05 }}
+                    key={sponsor._id} 
+                    className="group relative"
+                  >
+                    <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-1 translate-y-1 md:translate-x-2 md:translate-y-2 opacity-30 group-hover:translate-x-2 group-hover:translate-y-2 md:group-hover:translate-x-3 md:group-hover:translate-y-3 transition-transform duration-500"></div>
                     
-                    <div className="flex justify-center space-x-6 mt-auto pb-2 border-t border-rajasthan-gold/10 pt-4">
-                      {sponsor.socialLinks?.linkedin && (
-                        <a href={sponsor.socialLinks.linkedin} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
-                          <Linkedin size={20} />
-                        </a>
-                      )}
-                      {sponsor.socialLinks?.instagram && (
-                        <a href={sponsor.socialLinks.instagram} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
-                          <Instagram size={20} />
-                        </a>
-                      )}
+                    <div className="dark-royal-glass rounded-2xl overflow-hidden relative shadow-2xl group-hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.4)] transition-shadow duration-500 z-10 outline outline-1 outline-offset-[-4px] outline-rajasthan-gold/30 flex flex-col h-full bg-rajasthan-navy">
+                      <div className="h-64 md:h-72 overflow-hidden relative bg-black/50">
+                        <img 
+                          src={sponsor.imageUrl} 
+                          alt={sponsor.name} 
+                          className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-rajasthan-navy via-transparent to-transparent opacity-80"></div>
+                      </div>
+                      
+                      <div className="p-5 md:p-6 text-center flex-grow flex flex-col justify-end bg-rajasthan-navy relative z-20 -mt-8 pt-8 border-t-2 border-rajasthan-gold/20">
+                        <h3 className="text-xl md:text-2xl font-bold font-ethnic text-rajasthan-gold mb-4 md:mb-6 truncate">{sponsor.name}</h3>
+                        
+                        <div className="flex justify-center space-x-6 mt-auto pb-2 border-t border-rajasthan-gold/10 pt-4">
+                          {sponsor.socialLinks?.linkedin && (
+                            <a href={sponsor.socialLinks.linkedin} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
+                              <Linkedin size={20} />
+                            </a>
+                          )}
+                          {sponsor.socialLinks?.instagram && (
+                            <a href={sponsor.socialLinks.instagram} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
+                              <Instagram size={20} />
+                            </a>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+
+              {sponsors.length === 0 && (
+                <div className="col-span-full text-center text-amber-200/50 py-24 font-royal text-xl">
+                  No Bhamashah found yet. Be the first to support our legacy!
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+              )}
+            </motion.div>
 
-          {sponsors.length === 0 && (
-            <div className="col-span-full text-center text-amber-200/50 py-24 font-royal text-xl">
-              No Bhamashah found yet. Be the first to support our legacy!
-            </div>
-          )}
-        </motion.div>
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex justify-center flex-wrap items-center gap-2 md:gap-4 mt-12 md:mt-16 pb-8">
-            <button
-              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-              className="px-4 md:px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-xs md:sm"
-            >
-              &larr; Prev
-            </button>
-            <span className="text-amber-50 font-royal tracking-widest text-[10px] md:text-sm bg-rajasthan-navy/50 px-3 md:px-4 py-2 rounded-full border border-rajasthan-gold/30 shadow-inner">
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-              disabled={currentPage === totalPages}
-              className="px-4 md:px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-xs md:sm"
-            >
-              Next &rarr;
-            </button>
-          </div>
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex justify-center flex-wrap items-center gap-2 md:gap-4 mt-12 md:mt-16 pb-8">
+                <button
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="px-4 md:px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-xs md:sm"
+                >
+                  &larr; Prev
+                </button>
+                <span className="text-amber-50 font-royal tracking-widest text-[10px] md:text-sm bg-rajasthan-navy/50 px-3 md:px-4 py-2 rounded-full border border-rajasthan-gold/30 shadow-inner">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className="px-4 md:px-6 py-2 border border-rajasthan-gold/50 rounded-full text-rajasthan-gold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-rajasthan-gold/10 transition-colors font-royal tracking-widest uppercase text-xs md:sm"
+                >
+                  Next &rarr;
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

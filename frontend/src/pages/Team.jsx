@@ -1,17 +1,25 @@
 import { useEffect, useState } from 'react';
 import { API_URL } from '../config';
+import Loader from '../components/Loader';
 import { Linkedin, Instagram } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Team = () => {
   const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     fetch(`${API_URL}/members`)
       .then(res => res.json())
-      .then(data => setMembers(data))
-      .catch(err => console.error(err));
+      .then(data => {
+        setMembers(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
   }, []);
 
   const filteredMembers = filter === 'all' ? members : members.filter(m => m.department === filter);
@@ -48,59 +56,62 @@ const Team = () => {
           </div>
         </motion.div>
 
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
-          <AnimatePresence>
-            {filteredMembers.map((member, i) => (
-              <motion.div 
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                key={member._id} 
-                className="group relative"
-              >
-                {/* Decorative Frame Behind */}
-                <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-1 translate-y-1 md:translate-x-2 md:translate-y-2 opacity-30 group-hover:translate-x-2 group-hover:translate-y-2 md:group-hover:translate-x-3 md:group-hover:translate-y-3 transition-transform duration-500"></div>
-                
-                <div className="dark-royal-glass rounded-2xl overflow-hidden relative shadow-2xl group-hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.4)] transition-shadow duration-500 z-10 outline outline-1 outline-offset-[-4px] outline-rajasthan-gold/30 flex flex-col h-full bg-rajasthan-navy">
-                  <div className="h-64 md:h-72 overflow-hidden relative bg-black/50">
-                    <img 
-                      src={member.imageUrl} 
-                      alt={member.name} 
-                      className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-rajasthan-navy via-transparent to-transparent opacity-80"></div>
-                  </div>
+        {loading ? (
+          <Loader />
+        ) : (
+          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+            <AnimatePresence>
+              {filteredMembers.map((member, i) => (
+                <motion.div 
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  key={member._id} 
+                  className="group relative"
+                >
+                  <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-1 translate-y-1 md:translate-x-2 md:translate-y-2 opacity-30 group-hover:translate-x-2 group-hover:translate-y-2 md:group-hover:translate-x-3 md:group-hover:translate-y-3 transition-transform duration-500"></div>
                   
-                  <div className="p-5 md:p-6 text-center transform flex-grow flex flex-col justify-end bg-rajasthan-navy relative z-20 -mt-8 pt-8">
-                    <h3 className="text-xl md:text-2xl font-bold font-ethnic text-rajasthan-gold mb-1 truncate">{member.name}</h3>
-                    <p className="text-[10px] md:text-xs text-amber-100/80 font-royal italic uppercase tracking-widest mb-4 truncate">{member.role}</p>
+                  <div className="dark-royal-glass rounded-2xl overflow-hidden relative shadow-2xl group-hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.4)] transition-shadow duration-500 z-10 outline outline-1 outline-offset-[-4px] outline-rajasthan-gold/30 flex flex-col h-full bg-rajasthan-navy">
+                    <div className="h-64 md:h-72 overflow-hidden relative bg-black/50">
+                      <img 
+                        src={member.imageUrl} 
+                        alt={member.name} 
+                        className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-rajasthan-navy via-transparent to-transparent opacity-80"></div>
+                    </div>
                     
-                    <div className="flex justify-center space-x-6 mt-auto pb-2 border-t border-rajasthan-gold/10 pt-4">
-                      {member.socialLinks?.linkedin && (
-                        <a href={member.socialLinks.linkedin} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
-                          <Linkedin size={20} />
-                        </a>
-                      )}
-                      {member.socialLinks?.instagram && (
-                        <a href={member.socialLinks.instagram} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
-                          <Instagram size={20} />
-                        </a>
-                      )}
+                    <div className="p-5 md:p-6 text-center transform flex-grow flex flex-col justify-end bg-rajasthan-navy relative z-20 -mt-8 pt-8">
+                      <h3 className="text-xl md:text-2xl font-bold font-ethnic text-rajasthan-gold mb-1 truncate">{member.name}</h3>
+                      <p className="text-[10px] md:text-xs text-amber-100/80 font-royal italic uppercase tracking-widest mb-4 truncate">{member.role}</p>
+                      
+                      <div className="flex justify-center space-x-6 mt-auto pb-2 border-t border-rajasthan-gold/10 pt-4">
+                        {member.socialLinks?.linkedin && (
+                          <a href={member.socialLinks.linkedin} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
+                            <Linkedin size={20} />
+                          </a>
+                        )}
+                        {member.socialLinks?.instagram && (
+                          <a href={member.socialLinks.instagram} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
+                            <Instagram size={20} />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-          
-          {filteredMembers.length === 0 && (
-            <div className="col-span-full text-center text-rajasthan-navy/50 py-24 font-royal text-xl">
-              No council members found for this decree.
-            </div>
-          )}
-        </motion.div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+            
+            {filteredMembers.length === 0 && (
+              <div className="col-span-full text-center text-rajasthan-navy/50 py-24 font-royal text-xl">
+                No council members found for this decree.
+              </div>
+            )}
+          </motion.div>
+        )}
       </div>
     </div>
   );

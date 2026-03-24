@@ -3,6 +3,7 @@ import { API_URL } from '../config';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Maximize2, X, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import Loader from '../components/Loader';
 
 const Gallery = () => {
   const [events, setEvents] = useState([]);
@@ -74,8 +75,8 @@ const Gallery = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-immersive-dust flex items-center justify-center">
-        <div className="text-rajasthan-gold font-royal animate-pulse text-2xl tracking-[0.3em] uppercase">Opening the Royal Archives...</div>
+      <div className="py-24 min-h-screen bg-immersive-dust">
+        <Loader />
       </div>
     );
   }

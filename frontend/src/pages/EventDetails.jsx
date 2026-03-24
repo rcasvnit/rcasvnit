@@ -3,6 +3,7 @@ import { API_URL } from '../config';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, ArrowLeft, Image as ImageIcon } from 'lucide-react';
+import Loader from '../components/Loader';
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -26,11 +27,8 @@ const EventDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-immersive-dust flex items-center justify-center">
-        <div className="p-8 royal-glass rounded-2xl flex flex-col items-center">
-          <div className="w-16 h-16 border-4 border-rajasthan-gold border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p className="text-rajasthan-gold font-royal tracking-widest text-xl animate-pulse">Consulting the Royal Archives...</p>
-        </div>
+      <div className="py-24 min-h-screen bg-immersive-dust">
+        <Loader />
       </div>
     );
   }
