@@ -85,9 +85,24 @@ const About = () => {
             </div>
             
             <h3 className="text-3xl md:text-4xl font-ethnic font-bold text-rajasthan-saffron mb-4 md:mb-6">Our Mission</h3>
-            <p className="text-amber-50/90 font-royal text-lg md:text-xl leading-relaxed">
-              To cultivate an environment where the rich traditions, art, and values of Rajasthan are celebrated, preserved, and passed down. We aim to foster a strong sense of community, belonging, and pride among students while sharing our beautiful culture with the wider diverse campus.
-            </p>
+            <div className="space-y-4 font-royal text-base md:text-lg">
+              <div className="flex gap-4">
+                <span className="text-rajasthan-gold font-bold flex-shrink-0">Unity:</span>
+                <p className="text-amber-50/90 italic">"Our Rajasthani Pride Binds Us, Our Values Define Us"</p>
+              </div>
+              <div className="flex gap-4">
+                <span className="text-rajasthan-gold font-bold flex-shrink-0">Support:</span>
+                <p className="text-amber-50/90 italic">"Seeking Help is Strength, Giving Support is Our Duty"</p>
+              </div>
+              <div className="flex gap-4">
+                <span className="text-rajasthan-gold font-bold flex-shrink-0">Bridge:</span>
+                <p className="text-amber-50/90 italic">"Create a strong mentorship bridge connecting juniors with seniors and alumni"</p>
+              </div>
+              <div className="flex gap-4">
+                <span className="text-rajasthan-gold font-bold flex-shrink-0">Vision:</span>
+                <p className="text-amber-50/90 italic">"Build a strong support system for career and personal growth"</p>
+              </div>
+            </div>
           </motion.div>
           
           <motion.div 
@@ -104,10 +119,33 @@ const About = () => {
               <Shield size={28} />
             </div>
             
-            <h3 className="text-3xl md:text-4xl font-ethnic font-bold text-rajasthan-pink mb-4 md:mb-6">Our Vision</h3>
-            <p className="text-amber-50/90 font-royal text-lg md:text-xl leading-relaxed">
-              To be the most vibrant and inclusive cultural platform that elegantly bridges the gap between historical heritage and modern student life, inspiring everyone to embody the values of courage, honor, and extraordinary hospitality.
-            </p>
+            <h3 className="text-3xl md:text-4xl font-ethnic font-bold text-rajasthan-pink mb-4 md:mb-6">Vision</h3>
+            <ul className="space-y-3 font-royal text-base md:text-lg text-amber-50/90">
+              <li className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-rajasthan-pink mt-2.5 flex-shrink-0"></div>
+                <span>Alumni Database for industry connections & referrals</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-rajasthan-pink mt-2.5 flex-shrink-0"></div>
+                <span>Mentorship Programs with senior buddies for guidance</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-rajasthan-pink mt-2.5 flex-shrink-0"></div>
+                <span>Internship & placement support network</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-rajasthan-pink mt-2.5 flex-shrink-0"></div>
+                <span>Career guidance & professional development</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-rajasthan-pink mt-2.5 flex-shrink-0"></div>
+                <span>Team bonding trips to scenic locations</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-rajasthan-pink mt-2.5 flex-shrink-0"></div>
+                <span>Educational outings related to engineering & construction</span>
+              </li>
+            </ul>
           </motion.div>
         </div>
       </div>
