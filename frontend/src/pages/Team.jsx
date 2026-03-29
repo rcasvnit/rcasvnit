@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Team = () => {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('all');
+
 
   useEffect(() => {
     fetch(`${API_URL}/members`)
@@ -22,8 +22,7 @@ const Team = () => {
       });
   }, []);
 
-  const filteredMembers = filter === 'all' ? members : members.filter(m => m.department === filter);
-  const roles = ['all', 'core', 'design', 'tech', 'management'];
+  const filteredMembers = members;
 
   return (
     <div className="py-24 min-h-screen bg-immersive-dust">
@@ -39,21 +38,7 @@ const Team = () => {
           </h1>
           <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-transparent via-rajasthan-gold to-transparent mx-auto mb-10"></div>
           
-          <div className="flex flex-wrap justify-center gap-2 md:gap-4 border-y border-rajasthan-gold/30 py-4 md:py-6 max-w-3xl mx-auto bg-rajasthan-navy/50 backdrop-blur-md rounded-2xl md:rounded-full px-4 md:px-6 shadow-inner">
-            {roles.map(r => (
-              <button
-                key={r}
-                onClick={() => setFilter(r)}
-                className={`px-4 md:px-8 py-2 rounded-full font-royal font-bold tracking-widest uppercase text-[10px] md:text-sm transition-all duration-300 ${
-                  filter === r 
-                  ? 'bg-gradient-to-r from-rajasthan-maroon to-rajasthan-red text-rajasthan-gold shadow-lg scale-105' 
-                  : 'bg-transparent text-amber-50 hover:bg-rajasthan-navy hover:text-rajasthan-gold hover:shadow-md'
-                }`}
-              >
-                {r.charAt(0).toUpperCase() + r.slice(1)}
-              </button>
-            ))}
-          </div>
+
         </motion.div>
 
         {loading ? (
