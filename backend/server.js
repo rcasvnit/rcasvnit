@@ -25,6 +25,11 @@ app.use(cors({
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Add this root route to fix 'Cannot GET /'
+app.get('/', (req, res) => {
+  res.send('API is running successfully!');
+});
+
 app.use('/api', apiRoutes);
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/rca';
