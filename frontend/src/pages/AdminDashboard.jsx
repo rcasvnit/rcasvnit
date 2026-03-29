@@ -284,7 +284,7 @@ const AdminDashboard = () => {
               className="w-full bg-rajasthan-navy/90 border-2 border-rajasthan-gold/50 text-rajasthan-gold p-3 rounded-xl font-royal font-bold tracking-widest uppercase text-xs md:text-sm focus:border-rajasthan-gold focus:outline-none shadow-lg cursor-pointer transition-colors hover:border-rajasthan-gold"
             >
               <option value="events">Manage Events</option>
-              <option value="members">Manage Team</option>
+              <option value="members">Manage Committee</option>
               <option value="alumni">Manage Alumni</option>
               <option value="sponsors">Bhamashah</option>
               <option value="partners">Partners</option>
