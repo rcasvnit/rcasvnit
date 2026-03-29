@@ -54,7 +54,7 @@ const Team = () => {
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   key={member._id} 
-                  className="group relative"
+                  className="group relative h-full"
                 >
                   <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-1 translate-y-1 md:translate-x-2 md:translate-y-2 opacity-30 group-hover:translate-x-2 group-hover:translate-y-2 md:group-hover:translate-x-3 md:group-hover:translate-y-3 transition-transform duration-500"></div>
                   
@@ -72,7 +72,7 @@ const Team = () => {
                       <h3 className="text-xl md:text-2xl font-bold font-ethnic text-rajasthan-gold mb-1 truncate">{member.name}</h3>
                       <p className="text-[10px] md:text-xs text-amber-100/80 font-royal italic uppercase tracking-widest mb-4 truncate">{member.role}</p>
                       
-                      <div className="flex justify-center space-x-6 mt-auto pb-2 border-t border-rajasthan-gold/10 pt-4">
+                      <div className="flex justify-center space-x-6 mt-auto pb-2 border-t border-rajasthan-gold/10 pt-4 min-h-[52px]">
                         {member.socialLinks?.linkedin && (
                           <a href={member.socialLinks.linkedin} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
                             <Linkedin size={20} />
