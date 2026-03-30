@@ -68,14 +68,14 @@ const Team = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-rajasthan-navy via-transparent to-transparent opacity-80 md:bg-gradient-to-r md:from-transparent md:to-rajasthan-navy"></div>
                     </div>
                     
-                    <div className="p-6 md:p-10 text-center md:text-left flex-grow flex flex-col justify-center bg-rajasthan-navy relative z-20">
+                    <div className="p-6 md:p-10 text-center md:text-left flex-grow flex flex-col justify-center bg-rajasthan-navy relative z-20 overflow-hidden">
                       <div className="mb-auto hidden md:block border-b border-rajasthan-gold/20 pb-4">
-                         <h3 className="text-3xl lg:text-4xl font-bold font-ethnic text-rajasthan-gold mb-2">{member.name}</h3>
+                         <h3 className="text-2xl lg:text-3xl font-bold font-royal text-rajasthan-gold mb-2 truncate">{member.name}</h3>
                          <p className="text-sm lg:text-base text-amber-100/90 font-royal italic uppercase tracking-widest">{member.role}</p>
                       </div>
 
                       <div className="md:hidden">
-                        <h3 className="text-2xl font-bold font-ethnic text-rajasthan-gold mb-1 truncate -mt-6">{member.name}</h3>
+                        <h3 className="text-xl font-bold font-royal text-rajasthan-gold mb-1 truncate -mt-6">{member.name}</h3>
                         <p className="text-xs text-amber-100/80 font-royal italic uppercase tracking-widest mb-4 truncate">{member.role}</p>
                       </div>
                       
