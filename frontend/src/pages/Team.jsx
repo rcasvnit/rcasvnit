@@ -44,43 +44,50 @@ const Team = () => {
         {loading ? (
           <Loader />
         ) : (
-          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+          <motion.div layout className="flex flex-col gap-12 md:gap-16 items-center max-w-5xl mx-auto">
             <AnimatePresence>
               {filteredMembers.map((member, i) => (
                 <motion.div 
                   layout
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -30 }}
+                  transition={{ duration: 0.6, delay: i * 0.15 }}
                   key={member._id} 
-                  className="group relative h-full"
+                  className="group relative w-full sm:max-w-md md:max-w-4xl"
                 >
-                  <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-1 translate-y-1 md:translate-x-2 md:translate-y-2 opacity-30 group-hover:translate-x-2 group-hover:translate-y-2 md:group-hover:translate-x-3 md:group-hover:translate-y-3 transition-transform duration-500"></div>
+                  <div className="absolute inset-0 bg-rajasthan-gold rounded-2xl transform translate-x-1 md:translate-x-3 translate-y-1 md:translate-y-3 opacity-30 group-hover:translate-x-2 md:group-hover:translate-x-4 group-hover:translate-y-2 md:group-hover:translate-y-4 transition-transform duration-500"></div>
                   
-                  <div className="dark-royal-glass rounded-2xl overflow-hidden relative shadow-2xl group-hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.4)] transition-shadow duration-500 z-10 outline outline-1 outline-offset-[-4px] outline-rajasthan-gold/30 flex flex-col h-full bg-rajasthan-navy">
-                    <div className="h-64 md:h-72 overflow-hidden relative bg-black/50">
+                  <div className="dark-royal-glass rounded-2xl overflow-hidden relative shadow-2xl group-hover:shadow-[0_20px_50px_-15px_rgba(212,175,55,0.5)] transition-shadow duration-500 z-10 outline outline-1 outline-offset-[-4px] outline-rajasthan-gold/30 flex flex-col md:flex-row bg-rajasthan-navy h-auto md:h-[360px]">
+                    <div className="h-72 md:h-full md:w-2/5 overflow-hidden relative bg-black/50 shrink-0">
                       <img 
                         src={member.imageUrl} 
                         alt={member.name} 
                         className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-rajasthan-navy via-transparent to-transparent opacity-80"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-rajasthan-navy via-transparent to-transparent opacity-80 md:bg-gradient-to-r md:from-transparent md:to-rajasthan-navy"></div>
                     </div>
                     
-                    <div className="p-5 md:p-6 text-center transform flex-grow flex flex-col justify-end bg-rajasthan-navy relative z-20 -mt-8 pt-8">
-                      <h3 className="text-xl md:text-2xl font-bold font-ethnic text-rajasthan-gold mb-1 truncate">{member.name}</h3>
-                      <p className="text-[10px] md:text-xs text-amber-100/80 font-royal italic uppercase tracking-widest mb-4 truncate">{member.role}</p>
+                    <div className="p-6 md:p-10 text-center md:text-left flex-grow flex flex-col justify-center bg-rajasthan-navy relative z-20">
+                      <div className="mb-auto hidden md:block border-b border-rajasthan-gold/20 pb-4">
+                         <h3 className="text-3xl lg:text-4xl font-bold font-ethnic text-rajasthan-gold mb-2">{member.name}</h3>
+                         <p className="text-sm lg:text-base text-amber-100/90 font-royal italic uppercase tracking-widest">{member.role}</p>
+                      </div>
+
+                      <div className="md:hidden">
+                        <h3 className="text-2xl font-bold font-ethnic text-rajasthan-gold mb-1 truncate -mt-6">{member.name}</h3>
+                        <p className="text-xs text-amber-100/80 font-royal italic uppercase tracking-widest mb-4 truncate">{member.role}</p>
+                      </div>
                       
-                      <div className="flex justify-center space-x-6 mt-auto pb-2 border-t border-rajasthan-gold/10 pt-4 min-h-[52px]">
+                      <div className="flex justify-center md:justify-start space-x-6 mt-6 md:mt-8 pt-4 md:border-t-0 border-t border-rajasthan-gold/10">
                         {member.socialLinks?.linkedin && (
-                          <a href={member.socialLinks.linkedin} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
-                            <Linkedin size={20} />
+                          <a href={member.socialLinks.linkedin} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-rajasthan-gold transition-colors transform hover:scale-110">
+                            <Linkedin size={28} />
                           </a>
                         )}
                         {member.socialLinks?.instagram && (
-                          <a href={member.socialLinks.instagram} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-white transition-colors transform hover:scale-110">
-                            <Instagram size={20} />
+                          <a href={member.socialLinks.instagram} target="_blank" rel="noreferrer" className="text-rajasthan-gold/70 hover:text-rajasthan-gold transition-colors transform hover:scale-110">
+                            <Instagram size={28} />
                           </a>
                         )}
                       </div>
@@ -91,7 +98,7 @@ const Team = () => {
             </AnimatePresence>
             
             {filteredMembers.length === 0 && (
-              <div className="col-span-full text-center text-rajasthan-navy/50 py-24 font-royal text-xl">
+              <div className="w-full text-center text-rajasthan-navy/50 py-24 font-royal text-xl">
                 No council members found for this decree.
               </div>
             )}
